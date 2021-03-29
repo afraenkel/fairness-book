@@ -1,0 +1,30 @@
+# Book settings
+# Learn more at https://jupyterbook.org/customize/config.html
+
+title: Fairness & Algorithmic Decision Making
+author: Aaron Fraenkel
+logo: logo.png
+
+# Force re-execution of notebooks on each build.
+# See https://jupyterbook.org/content/execute.html
+# execute:
+#   execute_notebooks: force
+
+# Define the name of the latex output file for PDF builds
+latex:
+  latex_documents:
+    targetname: book.tex
+
+# Add GitHub buttons to your book
+# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
+# html:
+#   use_issues_button: true
+#   use_repository_button: true
+
+bibtex_bibfiles:
+  - references.bib
+
+repository:
+  url: https://github.com/afraenkel/fairness-book
+  path_to_book: .
+  branch: main

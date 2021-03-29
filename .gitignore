@@ -1,0 +1,9 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+
+.ipynb_checkpoints/
+__pycache__
+
+book/_build

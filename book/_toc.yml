@@ -1,0 +1,10 @@
+# Table of content
+# Learn more at https://jupyterbook.org/customize/toc.html
+#
+- file: intro
+  numbered: true
+
+- file: content/01-introduction
+# - file: content/02-frameworks
+# - file: content/03-measurement
+# - file: content/bibliography

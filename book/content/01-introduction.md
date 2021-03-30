@@ -325,6 +325,17 @@ The next chapter will examine different frameworks for understanding
 model quality and sociotechnical systems, beginning with long-studied
 topics of fairness, equality, and justice.
 
+### Context: who is judging the quality?
+
+Another thing to consider is the context under which the decisions
+occur. Are there legal implications to the decisions? There are
+precise notions of fairness in law (e.g. disparate impact) that may
+differ from public opinion. The consequences of running afoul of these
+notions will also be quite different: breaking the law may lead to
+prosecution, whereas releasing an unfair algorithm in the eyes of the
+public may lead to a boycott of your product.
+
+
 ## The machine learning pipeline
 
 The second half of the course focuses on ways in which bias and

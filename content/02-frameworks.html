@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>What is Fairness? &#8212; Fairness &amp; Algorithmic Decision Making</title>
+    <title>2. What is Fairness? &#8212; Fairness &amp; Algorithmic Decision Making</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -52,8 +52,12 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Bibliography" href="bibliography.html" />
+    <link rel="prev" title="1. Introduction" href="01-introduction.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -90,15 +94,20 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01-introduction.html">
    1. Introduction
   </a>
  </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. What is Fairness?
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="bibliography.html">
-   2. Bibliography
+   3. Bibliography
   </a>
  </li>
 </ul>
@@ -173,40 +182,52 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#utilitarianism">
-   Utilitarianism
+  <a class="reference internal nav-link" href="#example-medical-decision-making">
+   2.1. Example: Medical decision making
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#distributive-justice">
-   Distributive Justice
+  <a class="reference internal nav-link" href="#notions-of-fairness-welfare-and-justice">
+   2.2. Notions of fairness, welfare, and justice
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#utilitarianism">
+   2.3. Utilitarianism
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#equality-of-opportunity">
-     Equality of Opportunity
+    <a class="reference internal nav-link" href="#utilitarianism-and-machine-learning">
+     2.3.1. Utilitarianism and machine learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distributive-justice">
+   2.4. Distributive Justice
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formal-equality-of-opportunity">
+     2.4.1. Formal Equality of Opportunity
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#equality-of-fair-opportunity">
-     Equality of Fair Opportunity
+    <a class="reference internal nav-link" href="#fair-equality-of-opportunity">
+     2.4.2. Fair Equality of Opportunity
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#egalitarianism">
-     Egalitarianism
+    <a class="reference internal nav-link" href="#luck-egalitarianism">
+     2.4.3. Luck Egalitarianism
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#discrimination">
-   Discrimination
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#representational-harms">
-   Representational Harms
+   2.5. Discrimination
   </a>
  </li>
 </ul>
@@ -222,45 +243,241 @@
               <div>
                 
   <div class="section" id="what-is-fairness">
-<h1>What is Fairness?<a class="headerlink" href="#what-is-fairness" title="Permalink to this headline">¶</a></h1>
-<p>Comment on practical perspective.
-Terms: fairness, bias, discrimination, equality, equity, justice…</p>
-<p>Want a brief summary to help frame discussion. Many of these are
-discussed more elsewhere. This will largely be definitions.</p>
-<p>Much of the ML decision making (though not all!) approaches allocation
-of scarce resources.</p>
+<h1><span class="section-number">2. </span>What is Fairness?<a class="headerlink" href="#what-is-fairness" title="Permalink to this headline">¶</a></h1>
+<p>Throughout the course, we will take a practical view of understanding
+fairness in algorithmic decision making: how can we identify potential
+issues with a system, understand its impact on people with whom it
+interacts, and what should we do about it.</p>
+<p>This lecture will introduce terms and concepts from philosophy that
+will help us approach these questions. We will briefly discuss terms
+like fairness, justice, welfare, equality, equity, bias, and
+discrimination and how they frame discussions about decision making as
+a society.</p>
+<div class="section" id="example-medical-decision-making">
+<h2><span class="section-number">2.1. </span>Example: Medical decision making<a class="headerlink" href="#example-medical-decision-making" title="Permalink to this headline">¶</a></h2>
+<p>As an introductory example, we’ll examine the issues involved in
+rationing medical care, specifically ventilators, during the COVID-19
+pandemic <span id="id1">[<a class="reference internal" href="bibliography.html#id9"><span>SCW20</span></a>]</span>.</p>
+<p>People with severe cases of coronavirus experience trouble breathing
+and medical treatment often consisted of putting the patient on a
+ventilator for weeks at a time. During the height of the COVID-19
+pandemic, many hospitals filled beyond capacity and experienced a
+shortage of ventilators. The decision became: which patients receive
+access to a ventilator?</p>
+<ul class="simple">
+<li><p>Should only those with the highest chance at recovery receive a
+ventilator?</p></li>
+</ul>
+<p>This option attempts to <em>optimize</em> the existing (scarce) stock of
+ventilators and falls into a <em>utilitarian</em> point of view. However,
+there are a few objections to this:</p>
+<ul class="simple">
+<li><p>What if ventilators are sitting unused in anticipation of future
+patients with a higher chance of recovery?</p></li>
+<li><p>How is “chance of recovery” measured? Those with a better chance of
+recovery may only be in better health because of prior access to
+quality health-care.</p></li>
+</ul>
+<p>Other options might suggest that patients have, in some sense, an
+equal right the needed ventilators:</p>
+<ul class="simple">
+<li><p>Should patients entering the hospital receive ventilators on a
+‘first-come first-served’ basis?</p></li>
+<li><p>Should anyone in need, regardless of access to health-care, have an
+equal chance of receiving a ventilator?</p></li>
+</ul>
+<p>In practice, healthcare systems blend these two points of view
+<span id="id2">[<a class="reference internal" href="bibliography.html#id9"><span>SCW20</span></a>]</span>. We will look at these concepts, and continuing
+analyzing this example through this lecture.</p>
+</div>
+<div class="section" id="notions-of-fairness-welfare-and-justice">
+<h2><span class="section-number">2.2. </span>Notions of fairness, welfare, and justice<a class="headerlink" href="#notions-of-fairness-welfare-and-justice" title="Permalink to this headline">¶</a></h2>
+<p>Initially, we will focus on concepts of fairness, welfare, and justice
+in the context of allocative decision making by a state or
+organization. This entry point is reasonable, as</p>
+<ol class="simple">
+<li><p>algorithmic decision making systems usually make decisions for
+<em>others</em>, and</p></li>
+<li><p>discussion of allocative decisions are plentiful, accessible, and
+important.</p></li>
+</ol>
+<p>At the end of this lecture, we’ll explore how these notions apply in
+other settings.</p>
+</div>
 <div class="section" id="utilitarianism">
-<h2>Utilitarianism<a class="headerlink" href="#utilitarianism" title="Permalink to this headline">¶</a></h2>
-<p>This is what ML models do. Classification + average performance
-…</p>
+<h2><span class="section-number">2.3. </span>Utilitarianism<a class="headerlink" href="#utilitarianism" title="Permalink to this headline">¶</a></h2>
+<p>First developed by Jeremy Bentham and John Stuart Mill,
+<em>utilitarianism</em> is a doctrine that states:</p>
+<ol class="simple">
+<li><p>Only the consequences of actions determine what’s right and wrong
+(<em>consequentialism</em>).</p></li>
+<li><p>The right action is one that ‘provides the greatest benefit to the
+most people.’ (<em>utilitarianism</em>)</p></li>
+</ol>
+<p>The perspective of maximizing aggregate social welfare has a notable
+consequence: a person may be treated poorly for the good of
+others. The thought-experiment illustrating is consequence is
+the famous trolley problem:</p>
+<blockquote>
+<div><p>A trolley is heading toward five people working on the track. You can pull a lever and redirect the trolley to a track that has only one worker. Would you pull the lever, deciding to kill one worker to save the other five?</p>
+</div></blockquote>
+<p>Is the murder of one worker worth the benefit of saving the other
+five? Or is the act of taking a human life an unthinkable moral act?
+The utilitarian principle would describe the utility of pulling
+the lever to be five times greater than not (assuming all lives have
+equal worth, a noncontroversial statement) and consequentialism has no
+problem with the specific act of pulling the lever.</p>
+<p>The ventilator example illustrates a similar observation:</p>
+<ul class="simple">
+<li><p>Would you hold back the use of a ventilator for a patient that might
+arrive later who is more likely to recover because of it (or recover
+more quickly)?</p></li>
+<li><p>Would you take away the ventilator from a patient already using it
+if another patient that might receive greater benefit from it needs
+one as well?</p></li>
+</ul>
+<p>Even for the committed utilitarian, the answers to these questions
+depend on how you define ‘benefit’ and calculate the utility of making
+a given decision. The study by Savulescu et al. examine some of these
+choices, including maximizing number of lives saved, the aggregrate
+number of years-of-life saved (valuing healthy over frail; young over
+old).</p>
+<p>Public health professionals working in healthcare systems make these
+estimates daily, in a multitude of ways. Of course, these
+professionals also take into account legal, professional, and moral
+reasons in making their choices of benefit and utility. We will
+address these later.</p>
+<div class="section" id="utilitarianism-and-machine-learning">
+<h3><span class="section-number">2.3.1. </span>Utilitarianism and machine learning<a class="headerlink" href="#utilitarianism-and-machine-learning" title="Permalink to this headline">¶</a></h3>
+<p>This theory aligns with the basic organization of a machine learning
+powered decision making system. Fitting a model optimizes a loss
+function over the training set. The features are used to approximate
+potential benefits (often captured via a label), while the loss
+function corresponds to the utility. By default, a model makes better
+decisions when it optimizes loss of the entire training set.</p>
+</div>
 </div>
 <div class="section" id="distributive-justice">
-<h2>Distributive Justice<a class="headerlink" href="#distributive-justice" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="equality-of-opportunity">
-<h3>Equality of Opportunity<a class="headerlink" href="#equality-of-opportunity" title="Permalink to this headline">¶</a></h3>
+<h2><span class="section-number">2.4. </span>Distributive Justice<a class="headerlink" href="#distributive-justice" title="Permalink to this headline">¶</a></h2>
+<p>A theory of distributive justice describes ‘a just distribution of
+relevant goods in a society.’ The qualifier of ‘just’ is in response
+to utilitarianism’s unjust distribution of goods in the name of
+maximizing the aggregate welfare of the people. What qualifiers and
+limitations should be placed on such distribution to make them morally
+acceptable?</p>
+<p>Three closely related limits that address just distribution are
+equality, priority, and sufficiency <span id="id3">[<a class="reference internal" href="bibliography.html#id10"><span>Val03</span></a>]</span>. Limiting optimal distribution by
+a condition that ensures, in a broad sense, people benefit equally is
+described by theories of egalitarianism. Prioritarianism attempts to
+maximize goods <em>first</em> according to those most in need. Sufficiency
+places a floor on the sufficient distribution of goods, so that all
+basic needs are met, after which goods are distributed to maximize
+welfare.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The term ‘goods’ here is broadly defined as anything that positively
+contributes to a persons welfare (tangible goods, happiness,
+opportunity).</p>
 </div>
-<div class="section" id="equality-of-fair-opportunity">
-<h3>Equality of Fair Opportunity<a class="headerlink" href="#equality-of-fair-opportunity" title="Permalink to this headline">¶</a></h3>
+<p>In the most naive way, an egalitarian theory might limit the
+distribution of goods to be equal for everyone. However, in light of
+the broad notion of ‘goods’, any such theory would be unreasonably
+restrictive. Moreover, even if one only requires equality of total
+utility for each person, one has to confront the effect that
+drastically different choices in life make on that sum-total. One way
+of approaching this issue is by stipulating that everyone has a right
+to the same <em>opportunities</em> in life.</p>
+<p>The remainder of this section follows <span id="id4">[<a class="reference internal" href="bibliography.html#id11"><span>Arn15</span></a>]</span>.</p>
+<div class="section" id="formal-equality-of-opportunity">
+<h3><span class="section-number">2.4.1. </span>Formal Equality of Opportunity<a class="headerlink" href="#formal-equality-of-opportunity" title="Permalink to this headline">¶</a></h3>
+<p>Equality of Opportunity (EO) is a condition that seeks to restrict
+distribution of goods in a fair way. There are several notions of EO
+that refine the condition of ‘equal’ in ways that lead to different
+results in practice. Various notions of EO are codified in law in
+countries around the world.</p>
+<p>Formal equality of opportunity requires that a benefit is theoretically
+available to anyone, regardless of their background. For example, an open
+job position that satisfies Formal EO requires the employer to open
+the pool of applicants to everyone and that those applications be
+consider based on merits (as opposed to, for example, nepotism).</p>
+<p>In the example of the distribution of ventilators, formal equality of
+opportunity is not violated. Indeed, all patients that enter the
+hospital are considered for treatment with a ventilator; the choice of
+who receives one is based purely on ‘merit’ (conditions that are
+equally applied to all individuals). It is not the case that
+ventilators are only reserved for donors to the hospital.</p>
 </div>
-<div class="section" id="egalitarianism">
-<h3>Egalitarianism<a class="headerlink" href="#egalitarianism" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="fair-equality-of-opportunity">
+<h3><span class="section-number">2.4.2. </span>Fair Equality of Opportunity<a class="headerlink" href="#fair-equality-of-opportunity" title="Permalink to this headline">¶</a></h3>
+<p>One limitation of Formal Equality of Opportunity (FEO) is that while
+the distribution of goods is open to all, the ability to take
+advantage of such an opportunity may <em>effectively</em> be
+non-existent. For example, a job may be available through passing an
+arbitrary examination that only very wealthy pass (because only they
+can afford the training). While this job is theoretically available to
+everyone (satisfying formal EO), it in practice is only available to
+the very wealthy.</p>
+<p>John Rawls developed the concept of “fair equality of opportunity”
+that modified the EO statement so that, “assuming there is a
+distribution of natural assets, those who are at the same level of
+talent and ability, and have the same willingness to use them, should
+have the same prospects of success regardless of their initial place
+in the social system.”</p>
+<p><span id="id5">[<a class="reference internal" href="bibliography.html#id11"><span>Arn15</span></a>]</span>.</p>
+<p>To illustrate this ideal, Rawls envisioned a though-experiment he
+coined ‘The Veil of Ignorance’: imagine that you are proposing a certain
+distribution of goods in a hypothetical society. Would you consider
+the distribution just if you did not know who you would be in this
+society?</p>
+<p>The Veil of Ignorance separates (dis)advantages given by circumstances
+like to whom you were born from those circumstances that come from
+conscious choice throughout life.</p>
+<p>In the example of ventilator distribution, a patient born with a
+disability should have an equal claim to a ventilator as someone
+without a disability, even if that disability affects complicates
+potential recovery.</p>
+<p>In <span id="id6">[<a class="reference internal" href="bibliography.html#id12"><span>HLG+19</span></a>]</span>, they translate FEO into mathematical terms as
+follows:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(e\)</span> refers to the effort (i.e. legitimate sources of inequality)</p></li>
+<li><p><span class="math notranslate nohighlight">\(c\)</span> refers to circumstance</p></li>
+<li><p><span class="math notranslate nohighlight">\(F(\cdot|c, e)\)</span> is the cumulative distribution of utility at fixed
+effort <span class="math notranslate nohighlight">\(e\)</span> and circumstance <span class="math notranslate nohighlight">\(c\)</span>.</p></li>
+</ul>
+<p>The Rawlsian FEO states that for all circumstances <span class="math notranslate nohighlight">\(c, c'\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+F(\cdot|c, e) = F(\cdot|c', e)
+\]</div>
+</div>
+<div class="section" id="luck-egalitarianism">
+<h3><span class="section-number">2.4.3. </span>Luck Egalitarianism<a class="headerlink" href="#luck-egalitarianism" title="Permalink to this headline">¶</a></h3>
+<p>Conceptions of Equality of Opportunity dictate conditions under which
+it is just to gain an advantage over others in society. On the other hand,
+Luck Egalitarianism demands that differences in the goods that people
+accumulate should only be determined by choices people make and not by
+differences in unchosen circumstance <em>throughout</em> their life
+(i.e. luck).</p>
+<p>In the example of ventilator distribution, a patient systematically
+denied access to the healthcare system (e.g. by being born into
+poverty) may have a <em>greater</em> claim to a ventilator (in spite of being
+in poorer health), so that the expected benefit equals those with easy
+access to healthcare (and thus more likely to be healthy, arrive at
+the hospital less sick, etc).</p>
+<p>For this reason, luck egalitarianism is also called ‘The Level Playing
+Field’ ideal.</p>
 </div>
 </div>
 <div class="section" id="discrimination">
-<h2>Discrimination<a class="headerlink" href="#discrimination" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="representational-harms">
-<h2>Representational Harms<a class="headerlink" href="#representational-harms" title="Permalink to this headline">¶</a></h2>
-<p>All of the above assert something about summing up a utility over some
-space of possibilities. This can be included in that.</p>
-<p>Political and Social systems must be in place for discrimination and
-‘unfair distribution’. How that distribution is systematically unfair
-comes from these systems. Representation of people in the public
-sphere sets up popular support for beliefs that enable such unfair
-distribution.</p>
-<p>Example: The prescriptive stereotype that women aren’t as capable with
-careers =&gt; lead to resource allocation for women staying home / men at
-work.</p>
+<h2><span class="section-number">2.5. </span>Discrimination<a class="headerlink" href="#discrimination" title="Permalink to this headline">¶</a></h2>
+<p>Discrimination is unjust treatment of a person based on identification
+with a social group. While the term has evolving legal definitions,
+most characterizations violate one of the theories of equality of
+opportunity above (as do more informal, social uses of the term).</p>
+<p>In the next lecture, we will study how discrimination arises from power
+structures in social systems. Later we will study different
+quantitative characterizations of discrimination coming from
+Economics.</p>
 </div>
 </div>
 
@@ -289,6 +506,8 @@ work.</p>
         
         <div class='prev-next-bottom'>
             
+    <a class='left-prev' id="prev-link" href="01-introduction.html" title="previous page"><span class="section-number">1. </span>Introduction</a>
+    <a class='right-next' id="next-link" href="bibliography.html" title="next page"><span class="section-number">3. </span>Bibliography</a>
 
         </div>
         

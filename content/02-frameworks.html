@@ -319,14 +319,25 @@ consequence: a person may be treated poorly for the good of
 others. The thought-experiment illustrating is consequence is
 the famous trolley problem:</p>
 <blockquote>
-<div><p>A trolley is heading toward five people working on the track. You can pull a lever and redirect the trolley to a track that has only one worker. Would you pull the lever, deciding to kill one worker to save the other five?</p>
+<div><p>A trolley is heading toward five people working on the track.
+You can pull a lever and redirect the trolley to a track that has
+only one worker.
+Would you pull the lever, deciding to kill one worker to save the other five?</p>
 </div></blockquote>
-<p>Is the murder of one worker worth the benefit of saving the other
-five? Or is the act of taking a human life an unthinkable moral act?
-The utilitarian principle would describe the utility of pulling
-the lever to be five times greater than not (assuming all lives have
-equal worth, a noncontroversial statement) and consequentialism has no
-problem with the specific act of pulling the lever.</p>
+<p>A utilitarian might describe the utility of pulling the lever to be
+five times greater than not.</p>
+<div class="admonition-question admonition">
+<p class="admonition-title">Question</p>
+<p>What are the reasons you wouldn’t pull the lever?</p>
+<ul class="simple">
+<li><p>Which of these reasons are objections to the consequentialist
+component? (part 1)</p></li>
+<li><p>Which of these reasons are objections to the utilitarian component?
+(part 2)</p></li>
+<li><p>Are there reasons for objecting to pulling the lever that are
+consistent with utilitarianism? (e.g. how the total utility is calculated).</p></li>
+</ul>
+</div>
 <p>The ventilator example illustrates a similar observation:</p>
 <ul class="simple">
 <li><p>Would you hold back the use of a ventilator for a patient that might
@@ -355,6 +366,21 @@ function over the training set. The features are used to approximate
 potential benefits (often captured via a label), while the loss
 function corresponds to the utility. By default, a model makes better
 decisions when it optimizes loss of the entire training set.</p>
+<div class="admonition-question admonition">
+<p class="admonition-title">Question</p>
+<p>Sketch the structure of a model that decides whether an new patient
+should receive a ventilator. Begin with the following components:</p>
+<ol class="simple">
+<li><p>A model that, given information about the patient (place of
+residence, age, medical history), predicts the number of days they
+would use a ventilator.</p></li>
+<li><p>The current state of the healthcare system (number of patients
+arriving per day, with given medical information).</p></li>
+<li><p>A utility function to optimize (think about what this might be).</p></li>
+</ol>
+<p>What are some morally problematic behaviors of this model? What do you
+think it should or should not use in making its decisions?</p>
+</div>
 </div>
 </div>
 <div class="section" id="distributive-justice">
@@ -436,19 +462,25 @@ conscious choice throughout life.</p>
 disability should have an equal claim to a ventilator as someone
 without a disability, even if that disability affects complicates
 potential recovery.</p>
-<p>In <span id="id6">[<a class="reference internal" href="bibliography.html#id12"><span>HLG+19</span></a>]</span>, they translate FEO into mathematical terms as
-follows:</p>
+<p>In <span id="id6">[<a class="reference internal" href="bibliography.html#id12"><span>HLG+19</span></a>]</span>, the authors translate FEO into mathematical
+terms as follows. Suppose</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(e\)</span> refers to the effort (i.e. legitimate sources of inequality)</p></li>
-<li><p><span class="math notranslate nohighlight">\(c\)</span> refers to circumstance</p></li>
+<li><p><span class="math notranslate nohighlight">\(e\)</span> refers to the choices that one puts into life (talent, effort,
+ambition). These are, according to FEO, the legitimate sources of
+inequality that arise in the world.</p></li>
+<li><p><span class="math notranslate nohighlight">\(c\)</span> refers to circumstances beyond ones control. <span class="math notranslate nohighlight">\(c\)</span> captures the
+conditions from birth that may affect life’s outcomes
+(e.g. socio-economic status at birth).</p></li>
 <li><p><span class="math notranslate nohighlight">\(F(\cdot|c, e)\)</span> is the cumulative distribution of utility at fixed
 effort <span class="math notranslate nohighlight">\(e\)</span> and circumstance <span class="math notranslate nohighlight">\(c\)</span>.</p></li>
 </ul>
-<p>The Rawlsian FEO states that for all circumstances <span class="math notranslate nohighlight">\(c, c'\)</span>:</p>
+<p>The Rawlsian FEO states that for all circumstances <span class="math notranslate nohighlight">\(c, c'\)</span> and a fixed
+<span class="math notranslate nohighlight">\(e\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[
 F(\cdot|c, e) = F(\cdot|c', e)
 \]</div>
+<p>That is, the cumulative utility depends only on <span class="math notranslate nohighlight">\(e\)</span>.</p>
 </div>
 <div class="section" id="luck-egalitarianism">
 <h3><span class="section-number">2.4.3. </span>Luck Egalitarianism<a class="headerlink" href="#luck-egalitarianism" title="Permalink to this headline">¶</a></h3>
@@ -463,9 +495,25 @@ denied access to the healthcare system (e.g. by being born into
 poverty) may have a <em>greater</em> claim to a ventilator (in spite of being
 in poorer health), so that the expected benefit equals those with easy
 access to healthcare (and thus more likely to be healthy, arrive at
-the hospital less sick, etc).</p>
-<p>For this reason, luck egalitarianism is also called ‘The Level Playing
-Field’ ideal.</p>
+the hospital less sick, etc). This is untrue of FEO.</p>
+<p>Luck egalitarianism is also called ‘The Level Playing
+Field’ ideal because of its relative view of legitamate sources of
+inequality. That is, if two people share similar circumstances, then
+equal ‘effort’ should result in equal utility.</p>
+<p>Quantitatively, as derived in <span id="id7">[<a class="reference internal" href="bibliography.html#id12"><span>HLG+19</span></a>]</span>, suppose</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(c\)</span> refers to circumstances beyond ones control (i.e. ‘luck’),</p></li>
+<li><p>that <span class="math notranslate nohighlight">\(0 \leq \pi \leq 1\)</span> is the <span class="math notranslate nohighlight">\(\pi\)</span>th quantile of the
+<em>distribution of effort</em> of individuals under circumstances <span class="math notranslate nohighlight">\(c\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(F(\cdot|c, \pi)\)</span> is the cumulative distribution of utility at
+circumstance <span class="math notranslate nohighlight">\(c\)</span>and effort-quantile <span class="math notranslate nohighlight">\(\pi\)</span>.</p></li>
+</ul>
+<p>Luck Egalitarianism is satisfied if for all <span class="math notranslate nohighlight">\(\pi\in[0,1]\)</span> and for any
+two circumstances <span class="math notranslate nohighlight">\(c,c'\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+F(\cdot|c, \pi) = F(\cdot|c', \pi)
+\]</div>
 </div>
 </div>
 <div class="section" id="discrimination">

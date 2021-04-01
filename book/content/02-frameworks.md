@@ -77,14 +77,24 @@ consequence: a person may be treated poorly for the good of
 others. The thought-experiment illustrating is consequence is
 the famous trolley problem: 
 
-> A trolley is heading toward five people working on the track. You can pull a lever and redirect the trolley to a track that has only one worker. Would you pull the lever, deciding to kill one worker to save the other five?
+> A trolley is heading toward five people working on the track. 
+> You can pull a lever and redirect the trolley to a track that has
+> only one worker. 
+> Would you pull the lever, deciding to kill one worker to save the other five?
 
-Is the murder of one worker worth the benefit of saving the other
-five? Or is the act of taking a human life an unthinkable moral act?
-The utilitarian principle would describe the utility of pulling
-the lever to be five times greater than not (assuming all lives have
-equal worth, a noncontroversial statement) and consequentialism has no
-problem with the specific act of pulling the lever.
+A utilitarian might describe the utility of pulling the lever to be
+five times greater than not.
+
+```{admonition} Question
+What are the reasons you wouldn't pull the lever?
+
+* Which of these reasons are objections to the consequentialist
+  component? (part 1)
+* Which of these reasons are objections to the utilitarian component?
+  (part 2)
+* Are there reasons for objecting to pulling the lever that are
+consistent with utilitarianism? (e.g. how the total utility is calculated).
+```
 
 The ventilator example illustrates a similar observation: 
 * Would you hold back the use of a ventilator for a patient that might
@@ -116,7 +126,7 @@ potential benefits (often captured via a label), while the loss
 function corresponds to the utility. By default, a model makes better
 decisions when it optimizes loss of the entire training set.
 
-```{question}
+```{admonition} Question
 Sketch the structure of a model that decides whether an new patient
 should receive a ventilator. Begin with the following components:
 1. A model that, given information about the patient (place of
@@ -221,18 +231,25 @@ disability should have an equal claim to a ventilator as someone
 without a disability, even if that disability affects complicates
 potential recovery.
 
-In {cite}`heidari_2019`, they translate FEO into mathematical terms as
-follows:
-* $e$ refers to the effort (i.e. legitimate sources of inequality)
-* $c$ refers to circumstance
+In {cite}`heidari_2019`, the authors translate FEO into mathematical
+terms as follows. Suppose
+* $e$ refers to the choices that one puts into life (talent, effort,
+  ambition). These are, according to FEO, the legitimate sources of
+  inequality that arise in the world.
+* $c$ refers to circumstances beyond ones control. $c$ captures the
+  conditions from birth that may affect life's outcomes
+  (e.g. socio-economic status at birth).
 * $F(\cdot|c, e)$ is the cumulative distribution of utility at fixed
   effort $e$ and circumstance $c$.
   
-The Rawlsian FEO states that for all circumstances $c, c'$:
+The Rawlsian FEO states that for all circumstances $c, c'$ and a fixed
+$e$:
 
 $$
 F(\cdot|c, e) = F(\cdot|c', e)
 $$
+
+That is, the cumulative utility depends only on $e$.
 
 ### Luck Egalitarianism
 
@@ -248,10 +265,27 @@ denied access to the healthcare system (e.g. by being born into
 poverty) may have a *greater* claim to a ventilator (in spite of being
 in poorer health), so that the expected benefit equals those with easy
 access to healthcare (and thus more likely to be healthy, arrive at
-the hospital less sick, etc).
+the hospital less sick, etc). This is untrue of FEO.
 
-For this reason, luck egalitarianism is also called 'The Level Playing
-Field' ideal.
+Luck egalitarianism is also called 'The Level Playing
+Field' ideal because of its relative view of legitamate sources of
+inequality. That is, if two people share similar circumstances, then
+equal 'effort' should result in equal utility.
+
+Quantitatively, as derived in {cite}`heidari_2019`, suppose
+* $c$ refers to circumstances beyond ones control (i.e. 'luck'),
+* that $0 \leq \pi \leq 1$ is the $\pi$th quantile of the
+  *distribution of effort* of individuals under circumstances $c$,
+* $F(\cdot|c, \pi)$ is the cumulative distribution of utility at
+  circumstance $c$and effort-quantile $\pi$.
+  
+Luck Egalitarianism is satisfied if for all $\pi\in[0,1]$ and for any
+two circumstances $c,c'$:
+
+$$
+F(\cdot|c, \pi) = F(\cdot|c', \pi)
+$$
+
 
 ## Discrimination
 

@@ -1,2 +1,0 @@
-# Measurement, Data, and Power
-

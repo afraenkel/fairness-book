@@ -45,7 +45,7 @@ intent of the action is necessarily discriminatory. Disparate impact
 is only illegal in certain scenarios, like mortgage
 lending. 
 
-### Notions of discriminations from Economics
+### Notions of discrimination from Economics
 
 Economists model the world from a utilitarian perspective: humans are
 rational beings that act in their 'best' interest. That is, people

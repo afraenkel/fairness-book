@@ -88,7 +88,7 @@ applicant, doesn't have access to an employees timesheet; they instead
 generalize what they know about their current employees and use that
 to profile the applicant according to their race/ethnicity. This
 is statistical discrimination. While this example satisfies formal equality
-of opportunity, it doesn't satisfy formal equality of opportunity.
+of opportunity, it doesn't satisfy fair equality of opportunity.
 
 There are examples where the use of statistical measuresment about groups
 may actually make decisions more fair in certain senses of the

@@ -34,7 +34,7 @@ and who may identify with those groups, is a hotly contested matter
 regularly argued in the judicial system.
 
 *Disparate treatment* is the act of treating an individual
-unfavorably based on one of the protected charactertics listed
+unfavorably based on one of the protected characteristics listed
 above. This requires the cause or intent of the action is
 discriminatory. Disparate treatment is illegal in the US under Title
 VII of the Civil Rights Act.
@@ -65,7 +65,7 @@ non-minority employees. This results in minority employees making smaller
 wages on average and employers paying higher wages to non-minority
 employees of the same productivity. According to the economic model,
 taste-based discrimination is a non-optimal choice for the
-employer (and, of coures, harms the minority employee). This example
+employer (and, of courses, harms the minority employee). This example
 also violates Formal Equality of Opportunity.
 
 In the 1970s, economists Edmund Phelps and Kenneth Arrow developed a
@@ -90,7 +90,7 @@ to profile the applicant according to their race/ethnicity. This
 is statistical discrimination. While this example satisfies formal equality
 of opportunity, it doesn't satisfy fair equality of opportunity.
 
-There are examples where the use of statistical measuresment about groups
+There are examples where the use of statistical measurement about groups
 may actually make decisions more fair in certain senses of the
 term. For example, affirmative action uses aggregate information on
 minority groups' access to education to makes it more likely
@@ -188,7 +188,7 @@ As Jamie Susskind writes in *Future Politics* {cite}`susskind_2018`:
 Thus, representational harm has the potential to guide and reinforce
 unfairness built into the fabric of our social institutions
 themselves. These harms form or strengthen people's existing
-associations of the compisition and subordination of different
+associations of the composition and subordination of different
 groups. While these harms are unjust in their own right, they also lay
 the foundation for an environment that normalizes unfair allocative
 decisions that affect people's freedom and livelihood.
@@ -243,7 +243,7 @@ biases into a decision making system are:
   reinforces existing inequality? Is that outcome worth modeling?
 
 Consider the example of allocating medical care. Suppose a health-care
-company is stream-lining their triaging system: for each patient that
+company is stream-lining their triage system: for each patient that
 walks into the emergency room, the system must decide if this patient
 receives medical care right away, or if they must wait in the waiting
 room (and for how long). The developers of the system may look at past
@@ -289,7 +289,7 @@ are given the choice to select one of the following (taken from the NIH):
 
 Someone with a multiracial background would not have a way of
 truthfully answering. For example, someone from the Dominican
-Republic, with a large popululation of African descent, would likely
+Republic, with a large population of African descent, would likely
 *want* to reply they are Dominican! 
 
 Historically, these categories are created to classify with the aim of

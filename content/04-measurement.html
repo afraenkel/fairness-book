@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Test &#8212; Fairness &amp; Algorithmic Decision Making</title>
+    <title>Measurement, Data, and Power &#8212; Fairness &amp; Algorithmic Decision Making</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -151,9 +151,9 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/test.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/04-measurement.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
+                data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
@@ -171,28 +171,26 @@
 
             <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/afraenkel/fairness-book/main?urlpath=tree/./content/test.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
         </div>
 
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-collection">
+   Data Collection
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
         </div>
     </div>
 </div>
@@ -201,8 +199,46 @@
         
               <div>
                 
-  <div class="section" id="test">
-<h1>Test<a class="headerlink" href="#test" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="measurement-data-and-power">
+<h1>Measurement, Data, and Power<a class="headerlink" href="#measurement-data-and-power" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="data-collection">
+<h2>Data Collection<a class="headerlink" href="#data-collection" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>lack of data on a group</p></li>
+<li><p>too much data on a group</p></li>
+<li><p>target variable definition (or variables in general)</p></li>
+<li></li>
+</ul>
+<p>One example of this concerns the allocation of medical care. Suppose
+a health-care company is stream-lining their triaging system: for each
+patient that walks into the emergency room, the system must decide if
+this patient receives medical care right away, or if they must wait in
+the waiting room (and for how long). The developers of the system may
+look at past patient visits, the medical care they received, and the
+eventual outcome of the visit to decide which of these patients needed
+to be seen right away and which could wait. The allocative harm of a
+wrong decision is the witholding of medical care that could potential
+lead to prolonged sickness or death.</p>
+<p>One difficult aspect of developing such a model is that the ‘eventual
+outcome’ of a visit isn’t a well-defined event. Presumably, the true
+utility they should optimize for is ‘how quickly the patient needed
+care’. The model developers wanted to use ‘the severity of the
+illness’ and as an approximation used insurance code to measure the
+this severity.</p>
+<p>The problems with using insurance codes for measuring this outcome is
+that patients with better insurance typically receive more thorough
+medical care. Two people with the same illness may come in requiring
+an expensive intervention. The patient with expensive insurance will
+receive that coverage, whereas the other may decline treatment out of
+financial concerns (and so the need was never recorded). Fitting a
+model on this data results in decisions that prioritize the
+well-insured patient.</p>
+<p>The existing power difference in the medical institution is merely
+reinforcing itself. The wealthier patient, with better existing care
+and a record of that care, is noticed by the triage model; the patient
+with a smaller insurance plan is minimized from the record and
+forgotten by the triage model.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">

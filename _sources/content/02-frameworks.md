@@ -287,14 +287,3 @@ F(\cdot|c, \pi) = F(\cdot|c', \pi)
 $$
 
 
-## Discrimination
-
-Discrimination is unjust treatment of a person based on identification
-with a social group. While the term has evolving legal definitions,
-most characterizations violate one of the theories of equality of
-opportunity above (as do more informal, social uses of the term).
-
-In the next lecture, we will study how discrimination arises from power
-structures in social systems. Later we will study different
-quantitative characterizations of discrimination coming from
-Economics. 

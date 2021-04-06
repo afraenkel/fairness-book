@@ -1,0 +1,611 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3. Harm, Discrimination, and Measurement &#8212; Fairness &amp; Algorithmic Decision Making</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Bibliography" href="bibliography.html" />
+    <link rel="prev" title="2. What is Fairness?" href="02-frameworks.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fairness & Algorithmic Decision Making</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Fairness and Algorithmic Decision Making
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-frameworks.html">
+   2. What is Fairness?
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   3. Harm, Discrimination, and Measurement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   4. Bibliography
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/03-harms.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#discrimination">
+   3.1. Discrimination
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#legal-conceptions">
+     3.1.1. Legal Conceptions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#notions-of-discriminations-from-economics">
+     3.1.2. Notions of discriminations from Economics
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bias">
+   3.2. Bias
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#harms-inflicted-by-decision-making">
+   3.3. Harms inflicted by decision making
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#allocative-harms">
+     3.3.1. Allocative Harms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#representative-harms">
+     3.3.2. Representative Harms
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#measurement">
+   3.4. Measurement
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#poorly-defined-variables">
+     3.4.1. Poorly defined variables
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#missing-from-data">
+     3.4.2. Missing from data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#proxies-for-targets">
+     3.4.3. Proxies for targets
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="harm-discrimination-and-measurement">
+<h1><span class="section-number">3. </span>Harm, Discrimination, and Measurement<a class="headerlink" href="#harm-discrimination-and-measurement" title="Permalink to this headline">¶</a></h1>
+<p>The previous lecture discussed frameworks for justice in an ideal
+world: what we expect from a social institution that treats its
+members fairly. We will examine concepts of harm and discrimination as
+a way to better understand the limits of these frameworks for justice
+and understand, in a non-ideal world, how power structures created by
+social institutions encourage such discrimination.</p>
+<div class="section" id="discrimination">
+<h2><span class="section-number">3.1. </span>Discrimination<a class="headerlink" href="#discrimination" title="Permalink to this headline">¶</a></h2>
+<p>Discrimination is the unjust treatment of a person based on
+identification with a salient social group. What ‘unjust’ and
+‘salient’ mean in this context is contested among academics,
+lawmakers, and the public. However, most characterizations violate one
+of the theories of equality of opportunity above, as do more informal,
+social uses of the term.</p>
+<div class="section" id="legal-conceptions">
+<h3><span class="section-number">3.1.1. </span>Legal Conceptions<a class="headerlink" href="#legal-conceptions" title="Permalink to this headline">¶</a></h3>
+<p>Legal protections against discrimination exist in many countries
+around the world. A practicing data scientist must be aware of legal
+concepts of discrimination, at the very least, to make sure her
+decision making algorithm is in compliance with the law.</p>
+<p>In the US, discrimination law protects citizens that identify with
+specified protected groups from <em>disparate treatment</em> and <em>disparate
+impact</em>.</p>
+<p>These salient groups are defined by race, skin color, religion, sex,
+sexual orientation, gender identity, national origin, (old)-age,
+disability, or genetic information. Which groups are protected by law,
+and who may identify with those groups, is a hotly contested matter
+regularly argued in the judicial system.</p>
+<p><em>Disparate treatment</em> is the act of treating an individual
+unfavorably based on one of the protected charactertics listed
+above. This requires the cause or intent of the action is
+discriminatory. Disparate treatment is illegal in the US under Title
+VII of the Civil Rights Act.</p>
+<p><em>Disparate impact</em> occurs when an act unfairly affects people
+identifying with one of the protect groups listed above, even if the
+intent of the action is necessarily discriminatory. Disparate impact
+is only illegal in certain scenarios, like mortgage
+lending.</p>
+</div>
+<div class="section" id="notions-of-discriminations-from-economics">
+<h3><span class="section-number">3.1.2. </span>Notions of discriminations from Economics<a class="headerlink" href="#notions-of-discriminations-from-economics" title="Permalink to this headline">¶</a></h3>
+<p>Economists model the world from a utilitarian perspective: humans are
+rational beings that act in their ‘best’ interest. That is, people
+act, in an efficient way, to optimize their utility.</p>
+<p>The Nobel prize winning economist Gary Becker first developed an
+economic model of discrimination in 1957. Becker tied discrimination
+with intent, much like the theory of disparate treatment. His theory
+of <em>taste-based discrimination</em> asserts that one possible consequence
+of discrimination is that a discriminating actor will sacrifice
+utility in the pursuit of discrimination.</p>
+<p>As an example, suppose an employer refused to hire minority
+employees. This would decrease the number of jobs available to minority
+employees and increase the competition that employers may have to hire
+non-minority employees. This results in minority employees making smaller
+wages on average and employers paying higher wages to non-minority
+employees of the same productivity. According to the economic model,
+taste-based discrimination is a non-optimal choice for the
+employer (and, of coures, harms the minority employee). This example
+also violates Formal Equality of Opportunity.</p>
+<p>In the 1970s, economists Edmund Phelps and Kenneth Arrow developed a
+theory of <em>statistical discrimination</em>. This theory asserts that,
+under imperfect information, a decision maker may act optimally in a
+way that still results in systematically different outcomes for
+members of a salient group.</p>
+<p>Another way of phrasing statistical discrimination is that a decision
+maker may rely on a stereotype when we don’t have full information on
+every individual. The decision maker, when making their decision, acts
+on information on the group in question, instead of the individuals
+themselves. This type of discrimination is optimal for the
+decision maker.</p>
+<p>In the example above, suppose that an employer hires minority employees
+less often, as their internal company data show that such employees
+take sick days more often. This employer, when considering a job
+applicant, doesn’t have access to an employees timesheet; they instead
+generalize what they know about their current employees and use that
+to profile the applicant according to their race/ethnicity. This
+is statistical discrimination. While this example satisfies formal equality
+of opportunity, it doesn’t satisfy formal equality of opportunity.</p>
+<p>There are examples where the use of statistical measuresment about groups
+may actually make decisions more fair in certain senses of the
+term. For example, affirmative action uses aggregate information on
+minority groups’ access to education to makes it more likely
+to admit those that identify with those groups to educational
+institutions. This reasoning is similar to that of fair
+egalitarianism.</p>
+<p>An important takeaway from the example of statistical discrimination
+is that inequality and discrimination may persist even in the
+presence of equal ground rules, due to structural differences already
+present in social institutions. This is a theme we will return to later.</p>
+</div>
+</div>
+<div class="section" id="bias">
+<h2><span class="section-number">3.2. </span>Bias<a class="headerlink" href="#bias" title="Permalink to this headline">¶</a></h2>
+<p>Bias is a term often associated with discrimination; it is milder in
+the severity of intent. Those that are <em>biased against an individual</em>
+exhibit some systematic leaning that causes the person treat this
+individual differently (in a negative way).</p>
+<p>Bias also has a statistical meaning: a <em>statistical estimator is
+biased</em> if it systematically differs from the population parameter it
+estimates.</p>
+<p>The two meanings are (loosely) connected, if one assumes that a
+person’s decisions (i.e. decisions) are drawn from an underlying
+true, ‘fair’ distribution. However, to avoid confusion, we will avoid
+using the term bias in the colloquial sense.</p>
+</div>
+<div class="section" id="harms-inflicted-by-decision-making">
+<h2><span class="section-number">3.3. </span>Harms inflicted by decision making<a class="headerlink" href="#harms-inflicted-by-decision-making" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have surveyed different notions of fairness and
+unfairness, we will discuss the impact that unfair decisions have on
+people (and not just those directly involved in the decision). These
+impacts or <em>harms</em> occur after the decision and understanding them
+requires understanding how they interact with the social institutions
+that contain them.</p>
+<p>Understanding harm is of paramount importance, as it’s the primary
+reason to be concerned with fairness. While examining conceptions of
+justice and welfare will help us reason through what a fair system
+might look like, understanding harm grounds our reasoning in reality
+and serves as a gut check on the stakes involved.</p>
+<div class="section" id="allocative-harms">
+<h3><span class="section-number">3.3.1. </span>Allocative Harms<a class="headerlink" href="#allocative-harms" title="Permalink to this headline">¶</a></h3>
+<p>Allocative harms result from an allocative decision. The impacts of
+such harms are immediately observable and relatively easy to
+quantify. As the decisions are concerned with allocating measurable
+goods and opportunities, harms inflicted by them involve a lack of
+allocation. These harms are precisely those discussed in the previous
+lecture.</p>
+<p>Even with this ease of measurement, understanding the causes and
+extent of allocative harms is difficult. While philosophers can
+imagine an ideal ‘start of society’ and let it hypothetically evolve
+under the veil of ignorance, tangible (algorithmic) decisions take
+place in a tangible social structure with existing inequalities. It’s
+under these conditions that an algorithm may be attempting to optimize
+some allocation of goods.</p>
+<p>The impact of incorrect allocative decisions may be loss of life
+(medicine), loss of freedom (criminal justice), loss of financial
+opportunity (loans), loss of livelihood (work/education), and
+more. What are some of the ways decision making models make
+systemically wrong decisions?</p>
+<ol class="simple">
+<li><p>One of the main difficulty in allocative decision making comes
+in defining the utility being optimized. The ‘true’ utility is
+often an unquantifiable, poorly defined goal; human attempts to
+define them fall short in myriad ways.</p></li>
+<li><p>Algorithmic decision making algorithms fit their decisions to
+patterns in existing data, thus requiring data on the population it
+affects. As we will see in the next section, existing power
+structures affect who is seen and entered in the record in ways
+that reinforce these power structures.</p></li>
+<li><p>It’s not always clear how decisions will be used. An algorithmic
+decision is often presented as “one piece of information” to be
+used by a human decision, who may use the output of the algorithm
+to discriminate in unexpected ways.</p></li>
+</ol>
+</div>
+<div class="section" id="representative-harms">
+<h3><span class="section-number">3.3.2. </span>Representative Harms<a class="headerlink" href="#representative-harms" title="Permalink to this headline">¶</a></h3>
+<p>Recall that representational decisions surface the most relevant
+features of its subject and returns that representation. Thus a
+representational decision making algorithm <em>controls the flow of
+information</em> to its subjects and affects how they perceive the
+world. Harms inflicted by such decisions evolve over long periods of
+time. They are difficult to measure as the impact diffuses across
+social institutions with varying impacts not obviously associated to
+narrow utility of interest.</p>
+<p>As Jamie Susskind writes in <em>Future Politics</em> <span id="id1">[<a class="reference internal" href="bibliography.html#id13"><span>Sus18</span></a>]</span>:</p>
+<blockquote>
+<div><p>If you control the flow of information in a society, you can influence its shared sense of right and wrong, fair and unfair, clean and unclean, seemly and unseemly, real and fake, true and false, known and unknown.</p>
+</div></blockquote>
+<p>Thus, representational harm has the potential to guide and reinforce
+unfairness built into the fabric of our social institutions
+themselves. These harms form or strengthen people’s existing
+associations of the compisition and subordination of different
+groups. While these harms are unjust in their own right, they also lay
+the foundation for an environment that normalizes unfair allocative
+decisions that affect people’s freedom and livelihood.</p>
+<p>A classic example of representational harm is found in algorithmic image
+search. In 2015, a Google image search for the term ‘CEO’ resulted in
+dozens of white, old men, while the term ‘nurse’ resulted in a page of
+women <span id="id2">[<a class="reference internal" href="bibliography.html#id14"><span>OBC17</span></a>]</span>. This result reinforces existing
+notions of gender stereotypes that (white) men lead business and while
+women are the symbol of the caretaker.</p>
+<p>From the model developers perspective, anticipating the harm from this
+example is more difficult than for an allocative decision making
+algorithm. The model is likely built from associations in a large
+corpus of images and text that carry the same biases as the society
+that created it. Moreover, such a model has no obvious utility
+function that transparently tallies gain and harm; systematically
+surfacing this discrimination in the search functionality requires a
+clever experiment (of course, it’s also anecdotally apparent from use).</p>
+<p>Lastly, this algorithm was <em>accurate</em> in the sense that it reflected
+the real demographics of these two fields at the time. Its unfairness
+was a reinforcement from the unfairness in the social structures under
+which the model was fit. The question then becomes, what <em>should</em> the
+algorithm return? This question begs to use the frameworks for justice
+developed in the last lecture.</p>
+</div>
+</div>
+<div class="section" id="measurement">
+<h2><span class="section-number">3.4. </span>Measurement<a class="headerlink" href="#measurement" title="Permalink to this headline">¶</a></h2>
+<p>Up until now, we’ve focused on identifying unfairness and its impacts;
+we have not systematically asked how such fairness occurs. Any
+quantitative process for decision making requires recording real-world
+events in data. This process of <em>measurement</em> requires choices of what
+characteristics of these events to record; choices designed and
+implemented by humans living in a particular social
+structure. Moreover, those involved in measurement are usually in a
+position of power and more likely to reinforce the existing the
+existing order of power within that social structure. Evaluating
+measurement necessarily requires understanding the process that
+generates the data and how well it reflects the events that are
+informing the decision making. It cannot be quantified and automated.</p>
+<p>The act of measurement enables the existence of the data that informs
+the system. It is fundamental to this process, affecting every aspect
+of a decision making system. Three areas measurement may insert human
+biases into a decision making system are:</p>
+<ul class="simple">
+<li><p>Does the ‘training data’ reflect the social system it attempts to
+model? Is the social system itself flawed?</p></li>
+<li><p>Do variables adequately capture complex notions needed for the
+decision making? Should those notions be used?</p></li>
+<li><p>Is the outcome a well-defined measurement or a biased proxy that
+reinforces existing inequality? Is that outcome worth modeling?</p></li>
+</ul>
+<p>Consider the example of allocating medical care. Suppose a health-care
+company is stream-lining their triaging system: for each patient that
+walks into the emergency room, the system must decide if this patient
+receives medical care right away, or if they must wait in the waiting
+room (and for how long). The developers of the system may look at past
+patient visits, the medical care they received, and the eventual
+outcome of the visit to decide which of these patients needed to be
+seen right away and which could wait. The allocative harm of a wrong
+decision is the witholding of medical care that could potential lead
+to prolonged sickness or death.</p>
+<p>One difficult aspect of developing such a model is that the ‘eventual
+outcome’ of a visit isn’t a well-defined event. Presumably, the true
+utility they should optimize for is ‘how quickly the patient needed
+care’. The model developers wanted to use ‘the severity of the
+illness’ and as an approximation used insurance code to measure the
+this severity.</p>
+<p>The problems with using insurance codes for measuring this outcome is
+that patients with better insurance typically receive more thorough
+medical care. Two people with the same illness may come in requiring
+an expensive intervention. The patient with expensive insurance will
+receive that coverage, whereas the other may decline treatment out of
+financial concerns (and so the need was never recorded). Fitting a
+model on this data results in decisions that prioritize the
+well-insured patient.</p>
+<p>The existing power difference in the medical institution is merely
+reinforcing itself. The wealthier patient, with better existing care
+and a record of that care, is noticed by the triage model; the patient
+with a smaller insurance plan is minimized from the record and
+forgotten by the triage model.</p>
+<div class="section" id="poorly-defined-variables">
+<h3><span class="section-number">3.4.1. </span>Poorly defined variables<a class="headerlink" href="#poorly-defined-variables" title="Permalink to this headline">¶</a></h3>
+<p>The act of collecting data requires design. Recording race and ethnicity
+provides an instructive example. Suppose, filling out a survey, you
+are given the choice to select one of the following (taken from the NIH):</p>
+<ul class="simple">
+<li><p>American Indian or Alaska Native.</p></li>
+<li><p>Asian.</p></li>
+<li><p>Black or African American.</p></li>
+<li><p>Hispanic or Latino.</p></li>
+<li><p>Native Hawaiian or Other Pacific Islander.</p></li>
+<li><p>White.</p></li>
+</ul>
+<p>Someone with a multiracial background would not have a way of
+truthfully answering. For example, someone from the Dominican
+Republic, with a large popululation of African descent, would likely
+<em>want</em> to reply they are Dominican!</p>
+<p>Historically, these categories are created to classify with the aim of
+subordination. The effect of being categorized as Native American
+uprooted you from your home. The effect of being categorized as
+Black at one time enslaved you. And these categories change as the
+social structures change: at one point in time, Irish, Italian, and
+Jewish people were not considered White.</p>
+<p>The example of race is not contrived. We will see case after case of
+measurement that reflects a historical purpose of subjugation.</p>
+</div>
+<div class="section" id="missing-from-data">
+<h3><span class="section-number">3.4.2. </span>Missing from data<a class="headerlink" href="#missing-from-data" title="Permalink to this headline">¶</a></h3>
+<p>Decision making models are more accurate on populations for which they
+are familiar. However, as measurement is fundamentally costly, those
+that take part in its design are measured most often.</p>
+</div>
+<div class="section" id="proxies-for-targets">
+<h3><span class="section-number">3.4.3. </span>Proxies for targets<a class="headerlink" href="#proxies-for-targets" title="Permalink to this headline">¶</a></h3>
+<p>The ‘true’ outcome that informs a model is often an idealized,
+immeasurable concept. One common approach is to define a proxy measure
+for that idealize outcome. Such a procedure is similar to poorly
+defined variables, but guaranteed to bias your model, as it will
+learn the wrong utility function.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="02-frameworks.html" title="previous page"><span class="section-number">2. </span>What is Fairness?</a>
+    <a class='right-next' id="next-link" href="bibliography.html" title="next page"><span class="section-number">4. </span>Bibliography</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Aaron Fraenkel<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

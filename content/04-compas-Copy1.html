@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>4. COMPAS Recidivism Algorithm &#8212; Fairness &amp; Algorithmic Decision Making</title>
+    <title>Analysis of Fairness &#8212; Fairness &amp; Algorithmic Decision Making</title>
     
   <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
 
@@ -54,8 +54,6 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="5. Bibliography" href="bibliography.html" />
-    <link rel="prev" title="3. Harm, Discrimination, and Measurement" href="03-harms.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -92,7 +90,7 @@
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="01-introduction.html">
    1. Introduction
@@ -108,8 +106,8 @@
    3. Harm, Discrimination, and Measurement
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-compas.html">
    4. COMPAS Recidivism Algorithm
   </a>
  </li>
@@ -158,7 +156,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/content/04-compas.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/content/04-compas-Copy1.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -183,7 +181,7 @@
         aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
     <div class="dropdown-buttons">
         
-        <a class="binder-button" href="https://mybinder.org/v2/gh/afraenkel/fairness-book/main?urlpath=tree/./content/04-compas.ipynb"><button type="button"
+        <a class="binder-button" href="https://mybinder.org/v2/gh/afraenkel/fairness-book/main?urlpath=tree/./content/04-compas-Copy1.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
                 data-placement="left"><img class="binder-button-logo"
                     src="../_static/images/logo_binder.svg"
@@ -207,58 +205,19 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction">
-   4.1. Introduction
+  <a class="reference internal nav-link" href="#accuracy-analysis">
+   Accuracy Analysis
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#background-on-the-justice-system">
-   4.2. Background on the justice system
+  <a class="reference internal nav-link" href="#other-measures-of-quality">
+   Other measures of quality
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#description-of-compas">
-   4.3. Description of COMPAS
+  <a class="reference internal nav-link" href="#finishing-remarks">
+   Finishing Remarks
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data">
-     4.3.1. Data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#outcome">
-     4.3.2. Outcome
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#how-the-score-is-used-in-practice">
-     4.3.3. How the score is used in practice
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#analysis-of-fairness">
-   4.4. Analysis of Fairness
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#accuracy-analysis">
-     4.4.1. Accuracy Analysis
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#other-measures-of-quality">
-     4.4.2. Other measures of quality
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#final-remarks">
-     4.4.3. Final Remarks
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -272,101 +231,8 @@
         
               <div>
                 
-  <div class="section" id="compas-recidivism-algorithm">
-<h1><span class="section-number">4. </span>COMPAS Recidivism Algorithm<a class="headerlink" href="#compas-recidivism-algorithm" title="Permalink to this headline">¶</a></h1>
-<p>This lecture describes in detail an investigation by ProPublica into an algorithmic system that makes decisions used in the US criminal justice system <span id="id1">[<a class="reference internal" href="bibliography.html#id15"><span>ALMK16</span></a>]</span>. Not only does the investigation audit an opaque decision making system that influences the fundamental rights of residents of the US, it also serves as a model for  thorough reproducible analyses.</p>
-<p>All original materials for this study are publicly available:</p>
-<ul class="simple">
-<li><p>The original article: <a class="reference external" href="https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing">Machine Bias</a></p></li>
-<li><p>A <a class="reference external" href="https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm">methodological explanation</a>.</p></li>
-<li><p>A <a class="reference external" href="https://github.com/propublica/compas-analysis">GitHub Repository</a> containing code and data.</p></li>
-</ul>
-<div class="section" id="introduction">
-<h2><span class="section-number">4.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Before laying out the events, actors, and details of this story, we’ll start as <em>Machine Bias</em> does, by understanding how two different lives interact with the justice system. This tangible beginning sets the context for:</p>
-<ul class="simple">
-<li><p>(first and foremost) how such an algorithmic affects living, breathing, individuals,</p></li>
-<li><p>the need (or lack thereof) for this algorithmic system,</p></li>
-<li><p>what sorts of harms to these individuals result from poor decisions.</p></li>
-</ul>
-<p>The article describes two separate incidents in Broward County, Florida:</p>
-<ol class="simple">
-<li><p>After school in 2014, two 18-year-old girls, Brisha Borden and Sade Jones, briefly grabbed an unlocked bicycle and scooter and rode them down the street. Upon being confronted, they dropped the goods; the act seemed impulsive. Police arrived and arrested the girls for burglary and theft of $80 worth of goods. One of the girls had previously had a minor run-in with the law, whereas the other had no record.</p></li>
-<li><p>A 41-year-old man, Vernon Prater, was caught shoplifting $86 worth of goods from Home Depot. He had prior convictions for armed robbery and had previously served fived years in prison.</p></li>
-</ol>
-<p>Both groups were booked into jail, where a judge decides how to set bail: should they be released from jail, with some amount of money as collateral, while they await trial? Broward County uses an algorithmic decision making system, COMPAS, to assist the judge in making such decisions. In the end,</p>
-<ol class="simple">
-<li><p>A judge set bail for Brisha Borden and Sade Jones at $1000. COMPAS had labeled both of them high risk. A $0 bail would not be unusual in a case like this (considering age and circumstance). Both spent the night in jail.</p></li>
-<li><p>While the article doesn’t mention bail amount for Vernon Prater, it does mentioned that COMPAS labeled him as low risk for pretrial release.</p></li>
-</ol>
-<p><em>Were the risk scores reasonable?</em> In the case of these defendants, COMPAS risk scores were exactly incorrect. The girls, labeled high-risk, were never again booked for a crime. On the other hand, Prater was later arrested for grand-theft and is serving time in prison.</p>
-<p><em>What harms came from these incorrect decisions?</em> Some care must be taken when drawing conclusions from the events that occurred, as it’s unclear how the judges actually <em>used</em> the COMPAS risk assessments.</p>
-<p>In the case of Borden and Jones, evidence points toward the score influencing the judge’s decisions for setting bail. The impact of COMPAS’s poor decision resulted in the girls spending the night in jail. While not the case in Broward County, other counties use COMPAS scores in trial and sentencing as well. Similar poor algorithmic decisions elsewhere may impact the amount of time spent in prison (measured in years), future job prospects, and the right to vote.</p>
-<p>In the case of Prater, the COMPAS risk assessment was incorrect in a very different way. Prater was given benefit of the doubt and the score may result in a more lenient treatment. The impact from the poor decision is the impact of the future crime Prater may have committed during that period of leniency.</p>
-<p><em>What explains such a discrepancy in COMPAS scores?</em> We will examine the details of the algorithm to attempt an answer to this question. Unfortunately, the COMPAS model is a <em>black box</em> proprietary model that we can only indirectly audit. ProPublica hypothesized the difference may be due to <em>race</em>. In this case, Broden and Janes are Black and Prater is white.</p>
-<p>It’s important to keep the humans behind the observations in datasets at the front of your mind. They ground and guide your data analyses,provide gut-checks when evaluating potential harms, and guide hypotheses. ProPublica also published four similar stories of people affected by COMPAS: <a class="reference external" href="https://www.propublica.org/article/what-algorithmic-injustice-looks-like-in-real-life">What Algorithmic Injustice Looks Like in Real Life</a>.</p>
-</div>
-<div class="section" id="background-on-the-justice-system">
-<h2><span class="section-number">4.2. </span>Background on the justice system<a class="headerlink" href="#background-on-the-justice-system" title="Permalink to this headline">¶</a></h2>
-<p>The context in which the COMPAS risk-assessment algorithm makes decisions is the criminal justice system. This section will summarize the relevant components that someone must go through when experiencing the criminal justice system and briefly speak about existing biases present in these steps.</p>
-<p>While reading the steps of criminal justice, think about the impact that experiencing each step may have on an individual. Each of these steps, even before trial, involve some loss of freedom. This loss impacts the stability of that individual’s life, which in turn may affect the likelihood that the person interact with the criminal justice system in the future.</p>
-<p><strong>Arrest</strong> In order for an arrest to occur, an individual needs to come in contact with police and the officer must make a decision of whether that interaction justifies arresting the individual. The way this interaction plays out may lead to escalations that affect what may be considered an arrestable offence. Factors such as where police are staffed, the ‘reputation’ of the location where the contact occurs, the tendencies of the officer and surrounding witnesses all play a part in whether a citizen-police interaction ends in an arrest. Most citizen-police contact does <em>not</em> end in arrest, even when crime is involved.</p>
-<p><strong>Arraignment</strong> Once an individual is arrested, they are booked into jail. The government has 48 hours to charge the defendant with a crime, who then must plead ‘guilty’ or ‘not guilty’. Whether the individual is charged with a crime is a decision made by government prosecutors (and affirmed by a judge).</p>
-<p><strong>Pretrial detention or release (bail)</strong> Once charged with a crime, a judge decides whether the defendant may be released from jail while the trial is pending (by posting bail) or if they must remain in detention through the trial. The risks weighed by a judge making this decision are:</p>
-<ol class="simple">
-<li><p>Someone who must remain in custody while awaiting trial will be unable to work (and likely lose their job) and unable to care for their families. If someone is likely to return to court and not re-offend while out of custody, their life will experience less disruption.</p></li>
-<li><p>Someone released pretrial may continue the destructive behavior for which they were arrested.
-A judge may decide to attach a cash amount to the conditions of bail, which is forfeited if the defendant violates the condition of the pretrial release. Judges consider both the history of the defendant, as well as the nature of the crime in question when weighing the conditions of a potential pretrial release. The COMPAS risk-assessment is one factor that judges may take into account.</p></li>
-</ol>
-<p><strong>Trial</strong> Defendants stand trial for their crimes, either in front of a judge or jury, where they consider evidence about the crime in question. Sometimes, a witness may be called to present COMPAS scores as evidence of character during a trial.</p>
-<p><strong>Sentencing</strong> If a defendant is found guilty, the judge must determine the length and severity of the sentence. Such a sentence may include prison time, with possibilities for parole, or assignment to social services such as drug rehabilitation or therapy. The COMPAS risk-assessment is often used at this stage when considering parole or social services (i.e. actions that do not detain the individual).</p>
-<p>Each of these steps are primarily driven by individuals (e.g. police, judges, lawyers, jurors) making decisions, complete with human biases. Understanding how COMPAS is used by these individuals and how they interact with those human biases is just as important as understanding the biases inherent in the model.</p>
-</div>
-<div class="section" id="description-of-compas">
-<h2><span class="section-number">4.3. </span>Description of COMPAS<a class="headerlink" href="#description-of-compas" title="Permalink to this headline">¶</a></h2>
-<p>The COMPAS algorithm was created by a professor of statistics, Tim Brennan, and a professional in the corrections industry, Dave Wells, as a tool for “Correctional Offender Management Profiling for Alternative Sanctions”. The algorithm intends to provide risk-assessments for individuals in categories that they claim constitute a “full criminal profile”. These assessments were meant to measure the likelihood that someone may re-offend (recidivism), whether someone may go on to commit a violent crime, along with explanatory variables that may point to resources that may help rehabilitate the inmate. As the algorithm primarily concerns itself with risk of recidivism, it is primarily meant to be used in making decisions of pretrial release (bail) and parole.</p>
-<p>The model underlying COMPAS is closed-source and unknown to the public (including those who it affects). Below, we will use information that is available from Northpointe itself, alongside individuals that have taken surveys related to their COMPAS scores, to think through what creating such a risk-assessment tool might involve.</p>
-<div class="section" id="data">
-<h3><span class="section-number">4.3.1. </span>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h3>
-<p>The data from which the risk-scores are derived come from a combination of answers to a 137 question survey (which you can read <a class="reference external" href="https://www.documentcloud.org/documents/2702103-Sample-Risk-Assessment-COMPAS-CORE.html">here</a>) and the defendant’s criminal record. These variables include:</p>
-<ul class="simple">
-<li><p>Prior arrests and convictions</p></li>
-<li><p>Address of the defendant</p></li>
-<li><p>Whether the defendant a suspected gang member</p></li>
-<li><p>Whether the defendant ever violated parole</p></li>
-<li><p>If the defendant’s parents separated</p></li>
-<li><p>If friends/acquaintances of the defendant were ever arrested</p></li>
-<li><p>Whether drugs are available in the defendants neighborhood</p></li>
-<li><p>How often the defendant has moved residences</p></li>
-<li><p>The defendants high school GPA</p></li>
-<li><p>How much money the defendant has</p></li>
-<li><p>How often the defendant feels bored or sad</p></li>
-</ul>
-<p>One variable that <em>doesn’t</em> appear is the defendant’s race. However, many of the variables used in COMPAS are strongly correlated with race, which is built into the structure and history of the criminal justice system in the United States.</p>
-<div class="admonition-question admonition">
-<p class="admonition-title">Question</p>
-<p>Consider the frameworks of justice and equality in lecture 2. Each variable captures a characteristic of the defendant’s life. Which of these characteristics should be considered in a ralwsian framework and in a luck-egalitarian framework? Which of these variables captures a characteristic that results from individual choice? which characteristics does the defendant have no control over? How should each of these be used?</p>
-</div>
-</div>
-<div class="section" id="outcome">
-<h3><span class="section-number">4.3.2. </span>Outcome<a class="headerlink" href="#outcome" title="Permalink to this headline">¶</a></h3>
-<p>The true outcome being modeled by COMPAS is whether a defendant will commit another (felony) crime upon early release from custody. The term ‘felony’ helps dodge the fact that, in such a complicated penal code, almost every US resident commits a crime over a given year. For example, when considering releasing an individual charged with murder, the likelihood that they may jaywalk upon release seems irrelevant.</p>
-<p>This true outcome is unobservable and requires simplification in a number of ways:</p>
-<ul class="simple">
-<li><p>A time-frame must be set for observing whether someone re-offends. Northpointe uses a two years.</p></li>
-<li><p>To be observed re-offending, the police must come into contact with, arrest, and charge the defendant. There will be defendants in the training set that are incorrectly labeled as a ‘non-re-offender’, only because they committed a crime that wasn’t pursued.</p></li>
-</ul>
-<p>There will likely be bias in this mislabeling of re-offenders due to studied police behavior favoring white communities over Black communities: if Black communities experience more police contact, they are more likely to be prosecuted for crime, even if crime rates are the same in Black and white communities.</p>
-</div>
-<div class="section" id="how-the-score-is-used-in-practice">
-<h3><span class="section-number">4.3.3. </span>How the score is used in practice<a class="headerlink" href="#how-the-score-is-used-in-practice" title="Permalink to this headline">¶</a></h3>
-<p>The COMPAS score is used at the pretrial detention, trial, sentencing, and parole steps of the justice system. Given that the risk-assessment is supposed to model ‘likelihood of re-offending’ of a certain type, the developers of COMPAS only recommend using the algorithm to judge decisions like early release with access to social services. However, once the score became available to the criminal justice system as a whole, it became used in wholly inappropriate ways. For example, whether someone may commit another crime in the future has no bearing on whether they did or did not commit the current crime in question.</p>
-<p>The score itself also doesn’t actually make the decision. It’s another piece of information that judges and juries use when making more holistic decisions. However, as the output of this model is nothing more than an integer, it doesn’t explain to the decision maker how to weight this information.</p>
-<p>Moreover, even when used correctly, COMPAS likely confuses correlation for causation. One use of the COMPAS score is to help allocate over-burdened social services, like drug rehabilitation, to those who may benefit from them. Those at low risk to re-offend and who are in need of those services, should receive priority to use them. However, research shows that those with access to social services are in a better position to avoid arrest in the future. With this property present in training data, the model would learn to allocate these services to precisely those who already have them. (Note: there are statistical approaches to accounting for this confounding; as COMPAS is closed-source, we do not know how the model approaches this problem).</p>
-</div>
-</div>
-<div class="section" id="analysis-of-fairness">
-<h2><span class="section-number">4.4. </span>Analysis of Fairness<a class="headerlink" href="#analysis-of-fairness" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="analysis-of-fairness">
+<h1>Analysis of Fairness<a class="headerlink" href="#analysis-of-fairness" title="Permalink to this headline">¶</a></h1>
 <p>We will now audit the COMPAS algorithm on data collected by ProPublica via the Freedom of Information Act. This dataset comes from pretrial detention hearings in Broward County, Florida, in 2013.</p>
 <p>The variables we would like to examine are: sex/gender, race/ethnicity, age, purpose of assessment (e.g. pretrial release), type of assessment (recidivism, violent recidivism), and the risk-score itself.</p>
 <div class="cell tag_hide_input docutils container">
@@ -453,7 +319,7 @@ The is_first_col function was deprecated in Matplotlib 3.4 and will be removed t
   if ax.is_first_col():
 </pre></div>
 </div>
-<img alt="../_images/04-compas_14_1.png" src="../_images/04-compas_14_1.png" />
+<img alt="../_images/04-compas-Copy1_9_1.png" src="../_images/04-compas-Copy1_9_1.png" />
 </div>
 </div>
 <p>The majority of uses for the risk assessment are in the pretrial release context. Overall, after the lowest risk score, the recidivism deciles taper off:</p>
@@ -474,7 +340,7 @@ The is_first_col function was deprecated in Matplotlib 3.4 and will be removed t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04-compas_16_0.png" src="../_images/04-compas_16_0.png" />
+<img alt="../_images/04-compas-Copy1_11_0.png" src="../_images/04-compas-Copy1_11_0.png" />
 </div>
 </div>
 <p>There is a qualitative difference in the distributions among the Black and white defendants.</p>
@@ -496,7 +362,7 @@ The is_first_col function was deprecated in Matplotlib 3.4 and will be removed t
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/04-compas_18_0.png" src="../_images/04-compas_18_0.png" />
+<img alt="../_images/04-compas-Copy1_13_0.png" src="../_images/04-compas-Copy1_13_0.png" />
 </div>
 </div>
 <p>ProPublica also conducted public records research to determine which defendants re-offended in the two years following their COMPAS screening. They were able to follow up on approximately <em>half</em> the defendants. See ProPublica’s methodology for how this dataset was collected and joined to the one above.</p>
@@ -676,7 +542,7 @@ The is_first_col function was deprecated in Matplotlib 3.4 and will be removed t
 </div>
 <p>However, note that the <em>true</em> outcomes of Black and white defendants differ. We should instead consider evaluation metrics that normalize for this difference.</p>
 <div class="section" id="accuracy-analysis">
-<h3><span class="section-number">4.4.1. </span>Accuracy Analysis<a class="headerlink" href="#accuracy-analysis" title="Permalink to this headline">¶</a></h3>
+<h2>Accuracy Analysis<a class="headerlink" href="#accuracy-analysis" title="Permalink to this headline">¶</a></h2>
 <p>First, we will look at the accuracy of the COMPAS predictions (the proportions of predictions that were correct).</p>
 <div class="cell tag_hide_input docutils container">
 <div class="cell_input docutils container">
@@ -742,16 +608,16 @@ accuracy (White):	 0.669927
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.006
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.008
 </pre></div>
 </div>
-<img alt="../_images/04-compas_30_1.png" src="../_images/04-compas_30_1.png" />
+<img alt="../_images/04-compas-Copy1_25_1.png" src="../_images/04-compas-Copy1_25_1.png" />
 </div>
 </div>
 <p>On the one hand, this difference <em>is</em> significant. On the other hand, the algorithm’s quality is still in the same ballpark for both groups. Whether you find this to be a problem, really depends on how strongly you believe egalitarianism to play a role in this discussion. We will read, for example, about theories of <em>sufficiency</em> in subsequent weeks, which may assert that any performance over some fixed score (e.g. 60%) is ‘good enough’. As of today, there is not consensus in the legal system for how to evaluate such algorithms.</p>
 </div>
 <div class="section" id="other-measures-of-quality">
-<h3><span class="section-number">4.4.2. </span>Other measures of quality<a class="headerlink" href="#other-measures-of-quality" title="Permalink to this headline">¶</a></h3>
+<h2>Other measures of quality<a class="headerlink" href="#other-measures-of-quality" title="Permalink to this headline">¶</a></h2>
 <p>The argument over accuracy, however, is a distraction. Accuracy is <em>not</em> the best measure, as false positives and false negatives have <em>drastically</em> different meanings. Instead, we should consider these different types of errors separately.</p>
 <ul class="simple">
 <li><p>The False Negative Rate captures the proportion of incorrect “won’t re-offend” predictions among all those that actually did re-offend.</p></li>
@@ -834,11 +700,22 @@ accuracy (White):	 0.669927
 </div></div></div>
 </div>
 </div>
-<div class="section" id="final-remarks">
-<h3><span class="section-number">4.4.3. </span>Final Remarks<a class="headerlink" href="#final-remarks" title="Permalink to this headline">¶</a></h3>
-<p>While we have surfaced issues of unfairness, we have not explored what is causing the discrepancy in scores or whether the COMPAS scores are discriminatory in one of the precise senses from last lecture. To understand which variables (collected by ProPublica from criminal record requests) drive the COMPAS scores, ProPublica creates two models to analyze effect (Logistic Regression and a Cox Hazard Model).</p>
-<p>We will look into these factors more carefully in future lectures.</p>
-</div>
+<div class="section" id="finishing-remarks">
+<h2>Finishing Remarks<a class="headerlink" href="#finishing-remarks" title="Permalink to this headline">¶</a></h2>
+<p>A few finals questions and observations:</p>
+<ul class="simple">
+<li><p>We have not identified <em>why</em> the score exhibits this discrepancy!</p></li>
+<li><p>Which variables seem to be driving the difference?</p>
+<ul>
+<li><p>later we will model the COMPAS scores using LR and Hazard Analysis</p></li>
+</ul>
+</li>
+<li><p>Is COMPAS discriminatory? Legally? In Economic frameworks?</p>
+<ul>
+<li><p>Note, race is not present, only correlated variables</p></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 
@@ -867,8 +744,6 @@ accuracy (White):	 0.669927
         
         <div class='prev-next-bottom'>
             
-    <a class='left-prev' id="prev-link" href="03-harms.html" title="previous page"><span class="section-number">3. </span>Harm, Discrimination, and Measurement</a>
-    <a class='right-next' id="next-link" href="bibliography.html" title="next page"><span class="section-number">5. </span>Bibliography</a>
 
         </div>
         

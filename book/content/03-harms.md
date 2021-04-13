@@ -29,9 +29,10 @@ impact*.
 
 These salient groups are defined by race, skin color, religion, sex,
 sexual orientation, gender identity, national origin, (old)-age,
-disability, or genetic information. Which groups are protected by law,
-and who may identify with those groups, is a hotly contested matter
-regularly argued in the judicial system.
+pregnancy, familial status, veteran status, disability, or genetic
+information. Which groups are protected by law, and who may identify
+with those groups, is a hotly contested matter regularly argued in the
+judicial system.
 
 *Disparate treatment* is the act of treating an individual
 unfavorably based on one of the protected characteristics listed

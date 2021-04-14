@@ -15,11 +15,11 @@ latex:
   latex_documents:
     targetname: book.tex
 
-# Add GitHub buttons to your book
-# See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
-# html:
-#   use_issues_button: true
-#   use_repository_button: true
+
+execute:
+  execute_notebooks: cache
+
+only_build_toc_files: true
 
 bibtex_bibfiles:
   - references.bib

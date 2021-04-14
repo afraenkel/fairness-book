@@ -112,8 +112,13 @@
   </a>
  </li>
  <li class="toctree-l1">
+  <a class="reference internal" href="05-parity-measures.html">
+   5. Parity Measures
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="bibliography.html">
-   5. Bibliography
+   6. Bibliography
   </a>
  </li>
 </ul>
@@ -198,31 +203,6 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i>
-            Contents
-        </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#accuracy-analysis">
-   Accuracy Analysis
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#other-measures-of-quality">
-   Other measures of quality
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#finishing-remarks">
-   Finishing Remarks
-  </a>
- </li>
-</ul>
-
-        </nav>
-        
         </div>
     </div>
 </div>
@@ -234,421 +214,19 @@
   <div class="section" id="analysis-of-fairness">
 <h1>Analysis of Fairness<a class="headerlink" href="#analysis-of-fairness" title="Permalink to this headline">¶</a></h1>
 <p>We will now audit the COMPAS algorithm on data collected by ProPublica via the Freedom of Information Act. This dataset comes from pretrial detention hearings in Broward County, Florida, in 2013.</p>
-<p>The variables we would like to examine are: sex/gender, race/ethnicity, age, purpose of assessment (e.g. pretrial release), type of assessment (recidivism, violent recidivism), and the risk-score itself.</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">defendants</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-raw.csv&#39;</span><span class="p">)</span>
-
-<span class="k">with</span> <span class="n">pd</span><span class="o">.</span><span class="n">option_context</span><span class="p">(</span><span class="s1">&#39;display.max_rows&#39;</span><span class="p">,</span> <span class="mi">30</span><span class="p">):</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">defendants</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="mi">32647</span><span class="p">,</span> <span class="mi">5032</span><span class="p">]]</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;FirstName&#39;</span><span class="p">,</span> <span class="s1">&#39;LastName&#39;</span><span class="p">,</span> <span class="s1">&#39;MiddleName&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                      32647               5032 
-Person_ID                             60304               52305
-AssessmentID                          69187               58972
-Case_ID                               62725               53582
-Agency_Text                        PRETRIAL           Probation
-Sex_Code_Text                          Male                Male
-Ethnic_Code_Text           African-American           Caucasian
-DateOfBirth                        07/05/95            05/04/89
-ScaleSet_ID                              22                  22
-ScaleSet                 Risk and Prescreen  Risk and Prescreen
-AssessmentReason                     Intake              Intake
-Language                            English             English
-LegalStatus                        Pretrial       Post Sentence
-CustodyStatus                   Jail Inmate           Probation
-MaritalStatus                        Single              Single
-Screening_Date                 1/10/14 0:00        2/19/13 0:00
-RecSupervisionLevel                       2                   1
-RecSupervisionLevelText              Medium                 Low
-Scale_ID                                  8                   8
-DisplayText              Risk of Recidivism  Risk of Recidivism
-RawScore                              -0.48               -0.47
-DecileScore                               5                   5
-ScoreText                            Medium              Medium
-AssessmentType                          New                 New
-IsCompleted                               1                   1
-IsDeleted                                 0                   0
-</pre></div>
-</div>
-</div>
-</div>
-<p>We will restrict ourselves to looking at COMPAS scores for ‘Risk of Recidivism’:</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">defendants</span> <span class="o">=</span> <span class="n">defendants</span><span class="p">[</span><span class="n">defendants</span><span class="o">.</span><span class="n">DisplayText</span> <span class="o">==</span> <span class="s1">&#39;Risk of Recidivism&#39;</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>The number of defendants screened by COMPAS for Risk of Recidivism is:</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">defendants</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>20281
-</pre></div>
-</div>
-</div>
-</div>
-<p>Almost 80% of defendants are classified as male, while the white and Black defendants comprise of approximately 75% of the total population of defendants.</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-
-<span class="p">(</span>
-    <span class="n">defendants</span><span class="o">.</span><span class="n">Sex_Code_Text</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;proportion of defendants male/female&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">)</span>
-
-<span class="p">(</span>
-    <span class="n">defendants</span><span class="o">.</span><span class="n">Ethnic_Code_Text</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Distribution of race among defendants&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/afraenkel/.pyenv/versions/anaconda3-2020.07/lib/python3.8/site-packages/pandas/plotting/_matplotlib/tools.py:400: MatplotlibDeprecationWarning: 
-The is_first_col function was deprecated in Matplotlib 3.4 and will be removed two minor releases later. Use ax.get_subplotspec().is_first_col() instead.
-  if ax.is_first_col():
-</pre></div>
-</div>
-<img alt="../_images/04-compas-Copy1_9_1.png" src="../_images/04-compas-Copy1_9_1.png" />
-</div>
-</div>
-<p>The majority of uses for the risk assessment are in the pretrial release context. Overall, after the lowest risk score, the recidivism deciles taper off:</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-
-<span class="p">(</span>
-    <span class="n">defendants</span><span class="o">.</span><span class="n">LegalStatus</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Distribution of reasons for screening&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="p">)</span>
-
-<span class="p">(</span>
-    <span class="n">defendants</span><span class="o">.</span><span class="n">DecileScore</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Distribution of COMPAS scores&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/04-compas-Copy1_11_0.png" src="../_images/04-compas-Copy1_11_0.png" />
-</div>
-</div>
-<p>There is a qualitative difference in the distributions among the Black and white defendants.</p>
-<ul class="simple">
-<li><p>White defendants’ scores are concentrated at the ‘low risk’ end of the distribution</p></li>
-<li><p>Black defendants’ scores are roughly evenly distributed across the deciles</p></li>
-</ul>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">defendants</span>
-    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">defendants</span><span class="o">.</span><span class="n">Ethnic_Code_Text</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">])]</span>
-    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">defendants</span><span class="o">.</span><span class="n">DecileScore</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Ethnic_Code_Text&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">DecileScore</span>
-    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/04-compas-Copy1_13_0.png" src="../_images/04-compas-Copy1_13_0.png" />
-</div>
-</div>
-<p>ProPublica also conducted public records research to determine which defendants re-offended in the two years following their COMPAS screening. They were able to follow up on approximately <em>half</em> the defendants. See ProPublica’s methodology for how this dataset was collected and joined to the one above.</p>
-<p>This dataset contains a field <code class="docutils literal notranslate"><span class="pre">two_year_recid</span></code> that is 1 if the defendant re-offended within two years of screening and 0 otherwise. We will concern ourselves with comparing the Black and white populations, as in the article. Similarly, we will consider a COMPAS score of either ‘Medium’ or ‘High’ to be a prediction that the defendant will re-offend within two years.</p>
 <div class="cell tag_hide_input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-two-years.csv&#39;</span>
 <span class="n">recidivism</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="p">[[</span><span class="s1">&#39;age_cat&#39;</span><span class="p">,</span> <span class="s1">&#39;sex&#39;</span><span class="p">,</span> <span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="s1">&#39;score_text&#39;</span><span class="p">,</span> <span class="s1">&#39;two_year_recid&#39;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">race</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">])]</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">COMPAS_Decision</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;score_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;Low&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Medium&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}))</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>The COMPAS algorithm, on the dataset as a whole, is relatively balanced. We list a few observations about the COMPAS algorithms decisions, on average, for the population of study:</p>
-<ul class="simple">
-<li><p>Half the predicted defendants would re-offend (and half predicted not), which is slightly less than the actual proportion of re-offenders.</p></li>
-<li><p>35% of the population experienced an incorrect decision, roughly balanced between false positives and false negatives.</p></li>
-</ul>
-<p>The table below summarizes these statistics:</p>
-<div class="cell tag_hide_input docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;COMPAS_Decision&#39;</span><span class="p">],</span> <span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;two_year_recid&#39;</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th>two_year_recid</th>
-      <th>0</th>
-      <th>1</th>
-      <th>All</th>
-    </tr>
-    <tr>
-      <th>COMPAS_Decision</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.346179</td>
-      <td>0.161463</td>
-      <td>0.507642</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.187642</td>
-      <td>0.304715</td>
-      <td>0.492358</td>
-    </tr>
-    <tr>
-      <th>All</th>
-      <td>0.533821</td>
-      <td>0.466179</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>When looking at the Black and white populations separately, a different picture emerges:</p>
-<ul class="simple">
-<li><p>a greater proportion of Black defendants experience an incorrect (strict) “will re-offend” prediction than their white counterparts.</p></li>
-<li><p>a greater proportion of white defendants experience an incorrect (lenient) “won’t re-offend” prediction than their Black counterparts.</p></li>
-<li><p>This balance is necessary, as the difference in incorrect prediction types in the overall population is balanced.</p></li>
-</ul>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b_recid</span> <span class="o">=</span> <span class="n">recidivism</span><span class="p">[</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;African-American&#39;</span><span class="p">]</span>
-<span class="n">w_recid</span> <span class="o">=</span> <span class="n">recidivism</span><span class="p">[</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">]</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">b_recid</span><span class="p">[</span><span class="s1">&#39;COMPAS_Decision&#39;</span><span class="p">],</span> <span class="n">b_recid</span><span class="p">[</span><span class="s1">&#39;two_year_recid&#39;</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span><span class="n">w_recid</span><span class="p">[</span><span class="s1">&#39;COMPAS_Decision&#39;</span><span class="p">],</span> <span class="n">w_recid</span><span class="p">[</span><span class="s1">&#39;two_year_recid&#39;</span><span class="p">],</span> <span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>    
-<span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Black&#39;</span><span class="p">,</span> <span class="s1">&#39;White&#39;</span><span class="p">])</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead tr th {
-        text-align: left;
-    }
-
-    .dataframe thead tr:last-of-type th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr>
-      <th></th>
-      <th colspan="3" halign="left">Black</th>
-      <th colspan="3" halign="left">White</th>
-    </tr>
-    <tr>
-      <th>two_year_recid</th>
-      <th>0</th>
-      <th>1</th>
-      <th>All</th>
-      <th>0</th>
-      <th>1</th>
-      <th>All</th>
-    </tr>
-    <tr>
-      <th>COMPAS_Decision</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>0.267857</td>
-      <td>0.143939</td>
-      <td>0.411797</td>
-      <td>0.464140</td>
-      <td>0.187857</td>
-      <td>0.651997</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.217803</td>
-      <td>0.370400</td>
-      <td>0.588203</td>
-      <td>0.142217</td>
-      <td>0.205786</td>
-      <td>0.348003</td>
-    </tr>
-    <tr>
-      <th>All</th>
-      <td>0.485660</td>
-      <td>0.514340</td>
-      <td>1.000000</td>
-      <td>0.606357</td>
-      <td>0.393643</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
-<p>However, note that the <em>true</em> outcomes of Black and white defendants differ. We should instead consider evaluation metrics that normalize for this difference.</p>
-<div class="section" id="accuracy-analysis">
-<h2>Accuracy Analysis<a class="headerlink" href="#accuracy-analysis" title="Permalink to this headline">¶</a></h2>
-<p>First, we will look at the accuracy of the COMPAS predictions (the proportions of predictions that were correct).</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span>
-    <span class="s1">&#39;accuracy (All):  </span><span class="se">\t</span><span class="s1"> </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">recidivism</span><span class="o">.</span><span class="n">two_year_recid</span><span class="p">,</span> <span class="n">recidivism</span><span class="o">.</span><span class="n">COMPAS_Decision</span><span class="p">),</span> 
-    <span class="s1">&#39;accuracy (Black):</span><span class="se">\t</span><span class="s1"> </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">b_recid</span><span class="o">.</span><span class="n">two_year_recid</span><span class="p">,</span> <span class="n">b_recid</span><span class="o">.</span><span class="n">COMPAS_Decision</span><span class="p">),</span> 
-    <span class="s1">&#39;accuracy (White):</span><span class="se">\t</span><span class="s1"> </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">w_recid</span><span class="o">.</span><span class="n">two_year_recid</span><span class="p">,</span> <span class="n">w_recid</span><span class="o">.</span><span class="n">COMPAS_Decision</span><span class="p">),</span>
-    <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>accuracy (All):  	 0.650894
-accuracy (Black):	 0.638258
-accuracy (White):	 0.669927
-</pre></div>
-</div>
-</div>
-</div>
-<p>While the COMPAS algorithm performs better on the white population, these accuracies seem fairly close. We can check if this different is significant, using a 5% significance level. (We will use a permutation test to compute the p-value, for visualizing the variation).</p>
-<p>The difference in accuracies of the algorithm, between the white and black defendants, is approximately 3%:</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">obs</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">recidivism</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;race&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">two_year_recid</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">COMPAS_Decision</span><span class="p">))</span>
-    <span class="o">.</span><span class="n">diff</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="p">)</span>
-
-<span class="n">obs</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.03166907460917234
-</pre></div>
-</div>
-</div>
-</div>
-<p>Running a permutation test results in a p-value of approximately 1%, which leads us to reject the hypothesis that this difference in accuracies occurred by chance:</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">metrs</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-    <span class="n">s</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">recidivism</span>
-        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">race</span><span class="o">=</span><span class="n">recidivism</span><span class="o">.</span><span class="n">race</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;race&#39;</span><span class="p">)</span>
-        <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">two_year_recid</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">COMPAS_Decision</span><span class="p">))</span>
-        <span class="o">.</span><span class="n">diff</span><span class="p">()</span>
-        <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="p">)</span>
-    
-    <span class="n">metrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>  
-    
-<span class="nb">print</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">metrs</span> <span class="o">&gt;=</span> <span class="n">obs</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">metrs</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Permutation Test for accuracy of recidivism prediction&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.008
-</pre></div>
-</div>
-<img alt="../_images/04-compas-Copy1_25_1.png" src="../_images/04-compas-Copy1_25_1.png" />
-</div>
-</div>
-<p>On the one hand, this difference <em>is</em> significant. On the other hand, the algorithm’s quality is still in the same ballpark for both groups. Whether you find this to be a problem, really depends on how strongly you believe egalitarianism to play a role in this discussion. We will read, for example, about theories of <em>sufficiency</em> in subsequent weeks, which may assert that any performance over some fixed score (e.g. 60%) is ‘good enough’. As of today, there is not consensus in the legal system for how to evaluate such algorithms.</p>
-</div>
-<div class="section" id="other-measures-of-quality">
-<h2>Other measures of quality<a class="headerlink" href="#other-measures-of-quality" title="Permalink to this headline">¶</a></h2>
-<p>The argument over accuracy, however, is a distraction. Accuracy is <em>not</em> the best measure, as false positives and false negatives have <em>drastically</em> different meanings. Instead, we should consider these different types of errors separately.</p>
-<ul class="simple">
-<li><p>The False Negative Rate captures the proportion of incorrect “won’t re-offend” predictions among all those that actually did re-offend.</p></li>
-<li><p>The False Positive Rate captures the proportion of incorrect “will re-offend” predictions among all those that did not actually re-offend.</p></li>
-</ul>
-<p>Using these metrics for evaluation, we observe:</p>
-<ul class="simple">
-<li><p>Among the Black defendants, almost half of all true non-re-offenders were incorrectly labeled to be held in custody.</p></li>
-<li><p>Among white defendants, almost half of all true re-offenders were incorrectly labeled low risk, to be released from custody.</p></li>
-</ul>
-<p>Both of these observations, even from the perspective of sufficiency, point to COMPAS failing <em>both</em> of these populations in very different ways: Black defendants are disproportionately punished, while white defendants are disproportionately given leniency. The table below summarizes these observations:</p>
-<div class="cell tag_hide_input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_metrics</span><span class="p">(</span><span class="n">df</span><span class="p">):</span>
-    
-    <span class="n">conf</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">two_year_recid</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">COMPAS_Decision</span><span class="p">)</span>
-    <span class="n">TP</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">TN</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">FP</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">FN</span> <span class="o">=</span> <span class="n">conf</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
-    
-    <span class="n">fnr</span> <span class="o">=</span> <span class="n">FN</span> <span class="o">/</span> <span class="p">(</span><span class="n">TP</span> <span class="o">+</span> <span class="n">FN</span><span class="p">)</span>
-    <span class="n">fpr</span> <span class="o">=</span> <span class="n">FP</span> <span class="o">/</span> <span class="p">(</span><span class="n">FP</span> <span class="o">+</span> <span class="n">TN</span><span class="p">)</span>
-    <span class="n">acc</span> <span class="o">=</span> <span class="p">(</span><span class="n">TP</span> <span class="o">+</span> <span class="n">TN</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">TP</span> <span class="o">+</span> <span class="n">TN</span> <span class="o">+</span> <span class="n">FP</span> <span class="o">+</span> <span class="n">FN</span><span class="p">)</span>
-    
-    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">({</span><span class="s1">&#39;FNR&#39;</span><span class="p">:</span> <span class="n">fnr</span><span class="p">,</span> <span class="s1">&#39;FPR&#39;</span><span class="p">:</span> <span class="n">fpr</span><span class="p">,</span> <span class="s1">&#39;ACC&#39;</span><span class="p">:</span> <span class="n">acc</span><span class="p">})</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
-    <span class="n">calc_metrics</span><span class="p">(</span><span class="n">recidivism</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;ALL&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>
-    <span class="n">recidivism</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;race&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">calc_metrics</span><span class="p">)</span>
-<span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recidivism</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
 </pre></div>
 </div>
 </div>
@@ -671,51 +249,828 @@ accuracy (White):	 0.669927
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>FNR</th>
-      <th>FPR</th>
-      <th>ACC</th>
+      <th>0</th>
+      <th>1</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>ALL</th>
-      <td>0.346355</td>
-      <td>0.351508</td>
-      <td>0.650894</td>
+      <th>id</th>
+      <td>1</td>
+      <td>3</td>
     </tr>
     <tr>
-      <th>African-American</th>
-      <td>0.279853</td>
-      <td>0.448468</td>
-      <td>0.638258</td>
+      <th>name</th>
+      <td>miguel hernandez</td>
+      <td>kevon dixon</td>
     </tr>
     <tr>
-      <th>Caucasian</th>
-      <td>0.477226</td>
-      <td>0.234543</td>
-      <td>0.669927</td>
+      <th>first</th>
+      <td>miguel</td>
+      <td>kevon</td>
+    </tr>
+    <tr>
+      <th>last</th>
+      <td>hernandez</td>
+      <td>dixon</td>
+    </tr>
+    <tr>
+      <th>compas_screening_date</th>
+      <td>2013-08-14</td>
+      <td>2013-01-27</td>
+    </tr>
+    <tr>
+      <th>sex</th>
+      <td>Male</td>
+      <td>Male</td>
+    </tr>
+    <tr>
+      <th>dob</th>
+      <td>1947-04-18</td>
+      <td>1982-01-22</td>
+    </tr>
+    <tr>
+      <th>age</th>
+      <td>69</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <th>age_cat</th>
+      <td>Greater than 45</td>
+      <td>25 - 45</td>
+    </tr>
+    <tr>
+      <th>race</th>
+      <td>Other</td>
+      <td>African-American</td>
+    </tr>
+    <tr>
+      <th>juv_fel_count</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>decile_score</th>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>juv_misd_count</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>juv_other_count</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>priors_count</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>days_b_screening_arrest</th>
+      <td>-1.0</td>
+      <td>-1.0</td>
+    </tr>
+    <tr>
+      <th>c_jail_in</th>
+      <td>2013-08-13 06:03:42</td>
+      <td>2013-01-26 03:45:27</td>
+    </tr>
+    <tr>
+      <th>c_jail_out</th>
+      <td>2013-08-14 05:41:20</td>
+      <td>2013-02-05 05:36:53</td>
+    </tr>
+    <tr>
+      <th>c_case_number</th>
+      <td>13011352CF10A</td>
+      <td>13001275CF10A</td>
+    </tr>
+    <tr>
+      <th>c_offense_date</th>
+      <td>2013-08-13</td>
+      <td>2013-01-26</td>
+    </tr>
+    <tr>
+      <th>c_arrest_date</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>c_days_from_compas</th>
+      <td>1.0</td>
+      <td>1.0</td>
+    </tr>
+    <tr>
+      <th>c_charge_degree</th>
+      <td>F</td>
+      <td>F</td>
+    </tr>
+    <tr>
+      <th>c_charge_desc</th>
+      <td>Aggravated Assault w/Firearm</td>
+      <td>Felony Battery w/Prior Convict</td>
+    </tr>
+    <tr>
+      <th>is_recid</th>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>r_case_number</th>
+      <td>NaN</td>
+      <td>13009779CF10A</td>
+    </tr>
+    <tr>
+      <th>r_charge_degree</th>
+      <td>NaN</td>
+      <td>(F3)</td>
+    </tr>
+    <tr>
+      <th>r_days_from_arrest</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>r_offense_date</th>
+      <td>NaN</td>
+      <td>2013-07-05</td>
+    </tr>
+    <tr>
+      <th>r_charge_desc</th>
+      <td>NaN</td>
+      <td>Felony Battery (Dom Strang)</td>
+    </tr>
+    <tr>
+      <th>r_jail_in</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>r_jail_out</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>violent_recid</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>is_violent_recid</th>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>vr_case_number</th>
+      <td>NaN</td>
+      <td>13009779CF10A</td>
+    </tr>
+    <tr>
+      <th>vr_charge_degree</th>
+      <td>NaN</td>
+      <td>(F3)</td>
+    </tr>
+    <tr>
+      <th>vr_offense_date</th>
+      <td>NaN</td>
+      <td>2013-07-05</td>
+    </tr>
+    <tr>
+      <th>vr_charge_desc</th>
+      <td>NaN</td>
+      <td>Felony Battery (Dom Strang)</td>
+    </tr>
+    <tr>
+      <th>type_of_assessment</th>
+      <td>Risk of Recidivism</td>
+      <td>Risk of Recidivism</td>
+    </tr>
+    <tr>
+      <th>decile_score.1</th>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>score_text</th>
+      <td>Low</td>
+      <td>Low</td>
+    </tr>
+    <tr>
+      <th>screening_date</th>
+      <td>2013-08-14</td>
+      <td>2013-01-27</td>
+    </tr>
+    <tr>
+      <th>v_type_of_assessment</th>
+      <td>Risk of Violence</td>
+      <td>Risk of Violence</td>
+    </tr>
+    <tr>
+      <th>v_decile_score</th>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>v_score_text</th>
+      <td>Low</td>
+      <td>Low</td>
+    </tr>
+    <tr>
+      <th>v_screening_date</th>
+      <td>2013-08-14</td>
+      <td>2013-01-27</td>
+    </tr>
+    <tr>
+      <th>in_custody</th>
+      <td>2014-07-07</td>
+      <td>2013-01-26</td>
+    </tr>
+    <tr>
+      <th>out_custody</th>
+      <td>2014-07-14</td>
+      <td>2013-02-05</td>
+    </tr>
+    <tr>
+      <th>priors_count.1</th>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>start</th>
+      <td>0</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <th>end</th>
+      <td>327</td>
+      <td>159</td>
+    </tr>
+    <tr>
+      <th>event</th>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>two_year_recid</th>
+      <td>0</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">recidivism</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">10</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">10</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">recidivism</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">dropna</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+</pre></div>
 </div>
-<div class="section" id="finishing-remarks">
-<h2>Finishing Remarks<a class="headerlink" href="#finishing-remarks" title="Permalink to this headline">¶</a></h2>
-<p>A few finals questions and observations:</p>
-<ul class="simple">
-<li><p>We have not identified <em>why</em> the score exhibits this discrepancy!</p></li>
-<li><p>Which variables seem to be driving the difference?</p>
-<ul>
-<li><p>later we will model the COMPAS scores using LR and Hazard Analysis</p></li>
-</ul>
-</li>
-<li><p>Is COMPAS discriminatory? Legally? In Economic frameworks?</p>
-<ul>
-<li><p>Note, race is not present, only correlated variables</p></li>
-</ul>
-</li>
-</ul>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>----------id----------
+2049     1
+2708     1
+2652     1
+4695     1
+597      1
+2644     1
+8785     1
+8777     1
+10824    1
+4679     1
+Name: id, dtype: int64
+----------name----------
+anthony smith           3
+carlos vasquez          2
+ronald shelton          2
+travis wilson           2
+christopher hamilton    2
+lee wright              2
+lee williams            2
+steven wilson           2
+james smith             2
+xavier johnson          2
+Name: name, dtype: int64
+----------first----------
+michael        149
+christopher    109
+james           84
+anthony         83
+robert          76
+john            74
+david           67
+joseph          64
+daniel          63
+william         51
+Name: first, dtype: int64
+----------last----------
+williams    83
+johnson     76
+brown       68
+smith       65
+jones       57
+davis       46
+jackson     40
+joseph      37
+wilson      34
+thomas      32
+Name: last, dtype: int64
+----------compas_screening_date----------
+2013-03-20    32
+2013-02-20    32
+2013-02-07    31
+2013-04-20    30
+2013-01-03    29
+2013-09-06    28
+2013-04-25    28
+2013-09-23    28
+2013-08-27    27
+2013-01-31    27
+Name: compas_screening_date, dtype: int64
+----------sex----------
+Male      5819
+Female    1395
+Name: sex, dtype: int64
+----------dob----------
+1989-08-31    5
+1989-04-27    5
+1987-02-04    5
+1994-07-15    5
+1987-12-21    5
+1990-02-22    5
+1990-05-02    5
+1988-09-13    4
+1995-05-06    4
+1992-02-05    4
+Name: dob, dtype: int64
+----------age----------
+24    365
+26    332
+25    332
+27    321
+23    321
+21    318
+22    305
+30    297
+29    283
+28    279
+Name: age, dtype: int64
+----------age_cat----------
+25 - 45            4109
+Greater than 45    1576
+Less than 25       1529
+Name: age_cat, dtype: int64
+----------race----------
+African-American    3696
+Caucasian           2454
+Hispanic             637
+Other                377
+Asian                 32
+Native American       18
+Name: race, dtype: int64
+----------juv_fel_count----------
+0     6932
+1      189
+2       51
+3       18
+4       12
+5        5
+8        2
+6        2
+20       1
+9        1
+Name: juv_fel_count, dtype: int64
+----------decile_score----------
+1     1440
+2      941
+4      769
+3      747
+5      681
+6      641
+7      592
+8      512
+9      508
+10     383
+Name: decile_score, dtype: int64
+----------juv_misd_count----------
+0     6799
+1      291
+2       72
+3       29
+4        9
+5        5
+6        4
+8        3
+12       1
+13       1
+Name: juv_misd_count, dtype: int64
+----------juv_other_count----------
+0     6691
+1      368
+2       98
+3       33
+4       15
+5        4
+7        2
+9        1
+17       1
+6        1
+Name: juv_other_count, dtype: int64
+----------priors_count----------
+0    2150
+1    1397
+2     840
+3     568
+4     401
+5     334
+6     242
+7     210
+8     187
+9     149
+Name: priors_count, dtype: int64
+----------days_b_screening_arrest----------
+-1.0     3980
+ 0.0     1379
+ NaN      307
+-2.0      150
+-3.0       96
+-4.0       63
+-5.0       29
+-8.0       26
+-23.0      25
+-6.0       25
+Name: days_b_screening_arrest, dtype: int64
+----------c_jail_in----------
+NaN                    307
+2014-01-29 12:27:09      1
+2014-03-06 08:42:24      1
+2013-02-18 06:09:43      1
+2013-03-27 09:35:33      1
+2014-08-25 10:18:43      1
+2013-02-24 08:50:29      1
+2013-05-17 08:51:50      1
+2013-08-15 04:33:21      1
+2013-06-18 07:12:57      1
+Name: c_jail_in, dtype: int64
+----------c_jail_out----------
+NaN                    307
+2013-09-14 05:58:00      3
+2013-09-28 02:10:00      3
+2013-09-12 10:31:00      3
+2013-09-24 10:11:00      2
+2013-10-24 11:30:00      2
+2014-02-06 09:10:58      2
+2013-09-14 05:54:00      2
+2013-08-13 10:05:00      2
+2014-04-23 05:27:00      2
+Name: c_jail_out, dtype: int64
+----------c_case_number----------
+NaN              22
+13010874CF10A     1
+13002796CF10A     1
+13004913CF10A     1
+13009149MM10A     1
+13000272CF10A     1
+10018362CF10A     1
+13012854CF10A     1
+13013659CF10A     1
+13015543CF10A     1
+Name: c_case_number, dtype: int64
+----------c_offense_date----------
+NaN           1159
+2013-02-22      26
+2013-01-14      26
+2013-03-01      24
+2013-01-11      23
+2013-04-07      23
+2013-02-16      23
+2013-03-19      23
+2013-03-24      22
+2013-04-19      22
+Name: c_offense_date, dtype: int64
+----------c_arrest_date----------
+NaN           6077
+2013-02-06       9
+2013-03-22       8
+2013-05-15       8
+2013-03-21       7
+2013-01-10       7
+2013-10-22       7
+2013-01-11       7
+2013-02-14       7
+2013-09-09       7
+Name: c_arrest_date, dtype: int64
+----------c_days_from_compas----------
+1.0     4431
+0.0      900
+2.0      214
+3.0      101
+4.0       82
+5.0       40
+7.0       29
+23.0      28
+6.0       27
+22.0      26
+Name: c_days_from_compas, dtype: int64
+----------c_charge_degree----------
+F    4666
+M    2548
+Name: c_charge_degree, dtype: int64
+----------c_charge_desc----------
+Battery                           1156
+arrest case no charge             1137
+Possession of Cocaine              474
+Grand Theft in the 3rd Degree      425
+Driving While License Revoked      200
+Driving Under The Influence        135
+Felony Battery (Dom Strang)        100
+Grand Theft (Motor Vehicle)         98
+Pos Cannabis W/Intent Sel/Del       97
+Felony Driving While Lic Suspd      96
+Name: c_charge_desc, dtype: int64
+----------is_recid----------
+0    3743
+1    3471
+Name: is_recid, dtype: int64
+----------r_case_number----------
+NaN              3743
+13031382TC10A       1
+14013947CF10A       1
+14017714TC10A       1
+15018043TC20A       1
+13004333CF10A       1
+14002227CF10A       1
+13002539CF10A       1
+13069404TC40A       1
+15007478MM10A       1
+Name: r_case_number, dtype: int64
+----------r_charge_degree----------
+NaN      3743
+(M1)     1201
+(M2)     1107
+(F3)      892
+(F2)      168
+(F1)       51
+(MO3)      39
+(F7)        7
+(F6)        3
+(CO3)       2
+Name: r_charge_degree, dtype: int64
+----------r_days_from_arrest----------
+ NaN     4898
+ 0.0     1676
+ 1.0      289
+ 51.0       7
+-1.0        6
+ 77.0       6
+ 78.0       6
+ 6.0        5
+ 18.0       5
+ 4.0        5
+Name: r_days_from_arrest, dtype: int64
+----------r_offense_date----------
+NaN           3743
+2014-12-08      12
+2015-01-28      11
+2014-09-15      10
+2014-10-17      10
+2015-02-10      10
+2015-03-11      10
+2014-07-01       9
+2014-02-12       9
+2014-07-16       9
+Name: r_offense_date, dtype: int64
+----------r_charge_desc----------
+NaN                                  3801
+Driving License Suspended             258
+Possess Cannabis/20 Grams Or Less     253
+Resist/Obstruct W/O Violence          201
+Battery                               192
+Operating W/O Valid License           172
+Grand Theft in the 3rd Degree         157
+Petit Theft                           152
+Susp Drivers Lic 1st Offense          128
+Possession of Cocaine                 127
+Name: r_charge_desc, dtype: int64
+----------r_jail_in----------
+NaN           4898
+2014-05-27       9
+2014-12-08       8
+2014-06-05       8
+2014-10-17       8
+2015-03-03       8
+2013-11-22       8
+2014-07-10       8
+2014-07-16       7
+2014-11-18       7
+Name: r_jail_in, dtype: int64
+----------r_jail_out----------
+NaN           4898
+2014-12-09       9
+2014-02-18       9
+2015-05-15       9
+2013-11-13       8
+2014-08-27       8
+2014-09-23       8
+2014-07-11       8
+2014-05-18       7
+2014-07-29       7
+Name: r_jail_out, dtype: int64
+----------violent_recid----------
+NaN    7214
+Name: violent_recid, dtype: int64
+----------is_violent_recid----------
+0    6395
+1     819
+Name: is_violent_recid, dtype: int64
+----------vr_case_number----------
+NaN              6395
+13011601CF10A       1
+14006946CF10A       1
+13023400MM10A       1
+15013465CF10A       1
+14016590CF10A       1
+15008351CF10A       1
+15009879CF10A       1
+15002607MM10A       1
+14011470MM10A       1
+Name: vr_case_number, dtype: int64
+----------vr_charge_degree----------
+NaN      6395
+(M1)      344
+(F3)      228
+(F2)      162
+(F1)       38
+(M2)       19
+(F7)       18
+(MO3)       5
+(F6)        4
+(F5)        1
+Name: vr_charge_degree, dtype: int64
+----------vr_offense_date----------
+NaN           6395
+2015-08-15       6
+2015-06-26       4
+2014-12-26       4
+2015-04-27       4
+2015-03-29       4
+2015-01-06       4
+2015-06-13       4
+2014-10-29       4
+2015-09-04       4
+Name: vr_offense_date, dtype: int64
+----------vr_charge_desc----------
+NaN                               6395
+Battery                            329
+Battery on Law Enforc Officer       38
+Felony Battery (Dom Strang)         38
+Aggravated Assault W/Dead Weap      37
+Aggrav Battery w/Deadly Weapon      34
+Aggravated Battery / Pregnant       31
+Felony Battery w/Prior Convict      28
+Robbery / No Weapon                 24
+Agg Battery Grt/Bod/Harm            21
+Name: vr_charge_desc, dtype: int64
+----------type_of_assessment----------
+Risk of Recidivism    7214
+Name: type_of_assessment, dtype: int64
+----------decile_score.1----------
+1     1440
+2      941
+4      769
+3      747
+5      681
+6      641
+7      592
+8      512
+9      508
+10     383
+Name: decile_score.1, dtype: int64
+----------score_text----------
+Low       3897
+Medium    1914
+High      1403
+Name: score_text, dtype: int64
+----------screening_date----------
+2013-03-20    32
+2013-02-20    32
+2013-02-07    31
+2013-04-20    30
+2013-01-03    29
+2013-09-06    28
+2013-04-25    28
+2013-09-23    28
+2013-08-27    27
+2013-01-31    27
+Name: screening_date, dtype: int64
+----------v_type_of_assessment----------
+Risk of Violence    7214
+Name: v_type_of_assessment, dtype: int64
+----------v_decile_score----------
+1     1911
+2     1073
+3      979
+4      798
+5      689
+6      598
+7      452
+8      300
+9      290
+10     124
+Name: v_decile_score, dtype: int64
+----------v_score_text----------
+Low       4761
+Medium    1739
+High       714
+Name: v_score_text, dtype: int64
+----------v_screening_date----------
+2013-03-20    32
+2013-02-20    32
+2013-02-07    31
+2013-04-20    30
+2013-01-03    29
+2013-09-06    28
+2013-04-25    28
+2013-09-23    28
+2013-08-27    27
+2013-01-31    27
+Name: v_screening_date, dtype: int64
+----------in_custody----------
+NaN           236
+2013-02-22     20
+2014-01-22     20
+2013-12-12     20
+2014-01-04     20
+2013-04-07     19
+2013-01-27     19
+2014-01-10     19
+2014-01-21     19
+2013-11-05     19
+Name: in_custody, dtype: int64
+----------out_custody----------
+NaN           236
+2020-01-01     61
+2013-05-14     25
+2014-02-04     24
+2013-11-26     23
+2013-02-15     21
+2013-12-16     21
+2013-12-20     21
+2013-04-26     21
+2014-02-25     19
+Name: out_custody, dtype: int64
+----------priors_count.1----------
+0    2150
+1    1397
+2     840
+3     568
+4     401
+5     334
+6     242
+7     210
+8     187
+9     149
+Name: priors_count.1, dtype: int64
+----------start----------
+0     4523
+1      889
+2      242
+3      132
+4      102
+5       83
+6       63
+9       50
+7       50
+12      30
+Name: start, dtype: int64
+----------end----------
+35     27
+21     27
+7      23
+55     23
+31     21
+24     21
+48     21
+907    20
+30     20
+39     19
+Name: end, dtype: int64
+----------event----------
+0    4452
+1    2762
+Name: event, dtype: int64
+----------two_year_recid----------
+0    3963
+1    3251
+Name: two_year_recid, dtype: int64
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

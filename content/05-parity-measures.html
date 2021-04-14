@@ -1,0 +1,546 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>5. Parity Measures &#8212; Fairness &amp; Algorithmic Decision Making</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Bibliography" href="bibliography.html" />
+    <link rel="prev" title="4. COMPAS Recidivism Algorithm" href="04-compas.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fairness & Algorithmic Decision Making</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Fairness and Algorithmic Decision Making
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-frameworks.html">
+   2. What is Fairness?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-harms.html">
+   3. Harm, Discrimination, and Measurement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-compas.html">
+   4. COMPAS Recidivism Algorithm
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5. Parity Measures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   6. Bibliography
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/05-parity-measures.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/afraenkel/fairness-book/main?urlpath=tree/./content/05-parity-measures.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   5.1. Introduction
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#outline">
+     5.1.1. Outline
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quantitative-metrics-for-evaluation">
+   5.2. Quantitative metrics for evaluation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id2">
+   5.3. Parity Measures
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#demographic-parity">
+     5.3.1. Demographic Parity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accuracy-parity">
+     5.3.2. Accuracy Parity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#equality-of-odds-tp-parity-and-fp-parity">
+     5.3.3. Equality of Odds (TP-Parity and FP-Parity)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predictive-value-parity-ppv-parity-and-npv-parity">
+     5.3.4. Predictive Value Parity (PPV-Parity and NPV-Parity)
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="parity-measures">
+<h1><span class="section-number">5. </span>Parity Measures<a class="headerlink" href="#parity-measures" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2><span class="section-number">5.1. </span>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>We will now look specifically at preliminary notions of fairness applied to decision making systems powered by a supervised classifier. We begin with <em>observational</em> criteria: measurement of what exists and is observable. Observational criteria, like identifying differences the distribution of salaries between men and women, don’t assert anything meaningful about the nature of the discrepancy, about <em>why</em> such differences exist, or whether they constitute discrimination. On the other hand, identifying such differences is a first step in surfacing <em>possible</em> inequities and understanding why they exist (e.g. via a causal investigation).</p>
+<p>In this lecture, we will focus on allocative algorithmic decision made by a supervised, binary classifier. Such a context provides a simple, yet important, example to begin understanding these ideas. Much of this perspective follows Chapter 2 of <span id="id1">[<a class="reference internal" href="bibliography.html#id16"><span>BHN19</span></a>]</span>.</p>
+<p>We fix notation for this context, which will be used in the remainder of the chapter:</p>
+<ul class="simple">
+<li><p>the observed characteristics of an individual (variables) be denoted by <span class="math notranslate nohighlight">\(X\)</span>,</p></li>
+<li><p>a category containing a salient group (e.g. race) specified by <span class="math notranslate nohighlight">\(A\)</span>,</p></li>
+<li><p>the binary outcome variable denoted <span class="math notranslate nohighlight">\(Y\)</span>,</p></li>
+<li><p>the decision making classifier <span class="math notranslate nohighlight">\(C(X,A)\)</span>.</p></li>
+</ul>
+<p>Recall how each of these are depend on human choice and hide the complex, dirty, processes of measurement and interpretation.</p>
+<div class="section" id="outline">
+<h3><span class="section-number">5.1.1. </span>Outline<a class="headerlink" href="#outline" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>We start by first focusing on notion of the average quality of a classifier and examine properties of common metrics for classifiers in machine learning. On their own, these measures give us tools to pose questions about notions of <em>sufficiency</em> (as a concept in opposition to equality).</p></li>
+<li><p>The next section will discuss <em>parity measures</em>, which quantify notions of equality we discussed before.</p></li>
+<li><p>We then will revisit the tradeoff between maximizing aggregate utility and maintaining equality among groups</p></li>
+<li><p>Lastly, we will look at ways these parity measures affect different steps of the modeling pipeline.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="quantitative-metrics-for-evaluation">
+<h2><span class="section-number">5.2. </span>Quantitative metrics for evaluation<a class="headerlink" href="#quantitative-metrics-for-evaluation" title="Permalink to this headline">¶</a></h2>
+<p>First, we’ll review measures for evaluation of a classifier, as these are technically and conceptually the building blocks of parity measures. The table below nicely summarizes the most common evaluation metrics. In particular, it organizes measures the population it conditions on (i.e. the denominator):</p>
+<ol class="simple">
+<li><p>The total population (top row)</p></li>
+<li><p>The predicted condition (right side)</p></li>
+<li><p>The actual condition/outcome (bottom)</p></li>
+</ol>
+<table class="wikitable" align="center" style="text-align:center; border:none; background:transparent;">
+<tbody><tr>
+<td style="border:none;" colspan="2">
+</td>
+<td style="background:#eeeebb;" colspan="2"><b>True condition</b>
+</td></tr>
+<tr>
+<td style="border:none;">
+</td>
+<td style="background:#dddddd;"><a href="https://en.wikipedia.org/wiki/Statistical_population" title="Statistical population">Total population</a>
+</td>
+<td style="background:#ffffcc;">Condition positive
+</td>
+<td style="background:#ddddaa;">Condition negative
+</td>
+<td style="background:#eeeecc;font-size:90%;"><a href="https://en.wikipedia.org/wiki/Prevalence" title="Prevalence">Prevalence</a> <span style="font-size:118%;white-space:nowrap;">= <style data-mw-deduplicate="TemplateStyles:r1015390333">.mw-parser-output .sr-only{border:0;clip:rect(0,0,0,0);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;white-space:nowrap}</style><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931;&#160;Condition positive</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Total population</span></span></span>
+</td>
+<td style="background:#cceecc;border-left:double silver;font-size:90%;" colspan="2"><a href="https://en.wikipedia.org/wiki/Accuracy_and_precision" title="Accuracy and precision">Accuracy</a> (ACC) = <span style="font-size:118%;"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931;&#160;True positive + &#931; True negative</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Total population</span></span></span>
+</td></tr>
+<tr>
+<td rowspan="2" class="nowrap unsortable" style="line-height:99%;vertical-align:middle;padding:.4em .4em .2em;background-position:50% .4em !important;background:#bbeeee;"><b>Predicted condition</b>
+</td>
+<td style="background:#ccffff;">Predicted condition<br />positive
+</td>
+<td style="background:#ccffcc;"><span style="color:#006600;"><b><a href="https://en.wikipedia.org/wiki/True_positive" class="mw-redirect" title="True positive">True positive</a></b></span>
+</td>
+<td style="background:#eedddd;"><span style="color:#cc0000;"><b><a href="https://en.wikipedia.org/wiki/False_positive" class="mw-redirect" title="False positive">False positive</a></b>,<br /><a href="https://en.wikipedia.org/wiki/Type_I_error" class="mw-redirect" title="Type I error">Type I error</a></span>
+</td>
+<td style="background:#ccffee;border-top:double silver;font-size:90%;"><a href="https://en.wikipedia.org/wiki/Positive_predictive_value" class="mw-redirect" title="Positive predictive value">Positive predictive value</a> (PPV), <a href="https://en.wikipedia.org/wiki/Precision_(information_retrieval)" class="mw-redirect" title="Precision (information retrieval)">Precision</a> = <span style="font-size:118%;white-space:nowrap;"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; True positive</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Predicted&#160;condition&#160;positive</span></span></span>
+</td>
+<td style="background:#cceeff;border-top:double silver;font-size:90%;" colspan="2"><a href="https://en.wikipedia.org/wiki/False_discovery_rate" title="False discovery rate">False discovery rate</a> (FDR) = <span style="font-size:118%;white-space:nowrap;"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; False positive</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Predicted&#160;condition&#160;positive</span></span></span>
+</td></tr>
+<tr>
+<td style="background:#aadddd;">Predicted condition<br />negative
+</td>
+<td style="background:#ffdddd;"><span style="color:#cc0000;"><b><a href="https://en.wikipedia.org/wiki/False_negative" class="mw-redirect" title="False negative">False negative</a></b>,<br /><a href="https://en.wikipedia.org/wiki/Type_II_error" class="mw-redirect" title="Type II error">Type II error</a></span>
+</td>
+<td style="background:#bbeebb;"><span style="color:#006600;"><b><a href="https://en.wikipedia.org/wiki/True_negative" class="mw-redirect" title="True negative">True negative</a></b></span>
+</td>
+<td style="background:#eeddee;border-bottom:double silver;font-size:90%;"><a href="https://en.wikipedia.org/wiki/False_omission_rate" class="mw-redirect" title="False omission rate">False omission rate</a> (FOR) = <span style="font-size:118%;white-space:nowrap;"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; False negative</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Predicted&#160;condition&#160;negative</span></span></span>
+</td>
+<td style="background:#aaddcc;border-bottom:double silver;font-size:90%;" colspan="2"><a href="https://en.wikipedia.org/wiki/Negative_predictive_value" class="mw-redirect" title="Negative predictive value">Negative predictive value</a> (NPV) = <span style="font-size:118%;white-space:nowrap;"><link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; True negative</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Predicted&#160;condition&#160;negative</span></span></span>
+</td></tr>
+<tr style="font-size:90%;">
+<td style="border:none;vertical-align:bottom;padding:0 2px 0 0;color:#999999;" colspan="2" rowspan="2">
+</td>
+<td style="background:#eeffcc;"><a href="https://en.wikipedia.org/wiki/True_positive_rate" class="mw-redirect" title="True positive rate">True positive rate</a> (TPR), <a href="https://en.wikipedia.org/wiki/Recall_(information_retrieval)" class="mw-redirect" title="Recall (information retrieval)">Recall</a>, <a href="https://en.wikipedia.org/wiki/Sensitivity_(tests)" class="mw-redirect" title="Sensitivity (tests)">Sensitivity</a>, probability&#160;of&#160;detection, <a href="https://en.wikipedia.org/wiki/Statistical_power" class="mw-redirect" title="Statistical power">Power</a> <span style="font-size:118%;white-space:nowrap;">= <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; True positive</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Condition&#160;positive</span></span></span>
+</td>
+<td style="background:#eeddbb;"><a href="https://en.wikipedia.org/wiki/False_positive_rate" title="False positive rate">False positive rate</a> (FPR), <a href="https://en.wikipedia.org/wiki/Information_retrieval" title="Information retrieval"><span class="nowrap">Fall-out</span></a>, probability&#160;of&#160;false&#160;alarm <span style="font-size:118%;white-space:nowrap;">= <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; False positive</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Condition&#160;negative</span></span></span>
+</td>
+<td style="background:#eeeeee;"><a href="https://en.wikipedia.org/wiki/Positive_likelihood_ratio" class="mw-redirect" title="Positive likelihood ratio">Positive likelihood ratio</a> <span class="nowrap">(LR+)</span> <span style="font-size:118%;white-space:nowrap;">= <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">TPR</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">FPR</span></span></span>
+</td>
+<td style="background:#dddddd;" rowspan="2"><a href="https://en.wikipedia.org/wiki/Diagnostic_odds_ratio" title="Diagnostic odds ratio">Diagnostic odds ratio</a> (DOR) <span style="font-size:118%;white-space:nowrap;">= <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">LR+</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">LR−</span></span></span>
+</td>
+<td style="background:#ddffdd;border-left:double silver;line-height:2;" rowspan="2"><a href="https://en.wikipedia.org/wiki/F1_score" class="mw-redirect" title="F1 score">F<sub>1</sub> score</a> = <span style="font-size:118%;white-space:nowrap;">2 · <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">Precision · Recall</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">Precision + Recall</span></span></span>
+</td></tr>
+<tr style="font-size:90%;">
+<td style="background:#ffeecc;"><a href="https://en.wikipedia.org/wiki/False_negative_rate" class="mw-redirect" title="False negative rate">False negative rate</a> (FNR), Miss&#160;rate <span style="font-size:118%;white-space:nowrap;">= <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; False negative</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Condition&#160;positive</span></span></span>
+</td>
+<td style="background:#ddeebb;"><a href="https://en.wikipedia.org/wiki/Specificity_(tests)" class="mw-redirect" title="Specificity (tests)">Specificity</a> (SPC), Selectivity, <a href="https://en.wikipedia.org/wiki/True_negative_rate" class="mw-redirect" title="True negative rate">True negative rate</a> (TNR) <span style="font-size:118%;white-space:nowrap;">= <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">&#931; True negative</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">&#931;&#160;Condition&#160;negative</span></span></span>
+</td>
+<td style="background:#cccccc;"><a href="https://en.wikipedia.org/wiki/Negative_likelihood_ratio" class="mw-redirect" title="Negative likelihood ratio">Negative likelihood ratio</a> <span class="nowrap">(LR−)</span> <span style="font-size:118%;white-space:nowrap;">= <link rel="mw-deduplicated-inline-style" href="mw-data:TemplateStyles:r1015390333"/><span role="math" class="sfrac nowrap tion" style="display:inline-block; vertical-align:-0.5em; font-size:85%; text-align:center;"><span class="num" style="display:block; line-height:1em; margin:0 0.1em;">FNR</span><span class="slash sr-only">/</span><span class="den" style="display:block; line-height:1em; margin:0 0.1em; border-top:1px solid;">TNR</span></span></span>
+</td></tr></tbody></table>
+<p>Credit: <a class="reference external" href="https://en.wikipedia.org/wiki/Precision_and_recall">Wikipedia</a></p>
+<p>We will now look at some of these metrics in context.</p>
+<p><strong>Bail Decisions (COMPAS)</strong> We (re)examine the case of decisions for pretrial release. Here, <span class="math notranslate nohighlight">\(X\)</span> is the COMPAS survey and the defendant’s criminal history, <span class="math notranslate nohighlight">\(A\)</span> is race/ethnicity, <span class="math notranslate nohighlight">\(Y\)</span> is whether individual will re-offend, a <span class="math notranslate nohighlight">\(C(X, A)\)</span> decides if the defendant should be denied (1) or given (0) pretrial release.</p>
+<p>Pay attention to what the denominator represents in each case.</p>
+<ul class="simple">
+<li><p>A false positive keeps the defendant in custody unnecessarily,</p></li>
+<li><p>A false negative releases someone who goes on to re-offend,</p></li>
+<li><p>Accuracy is the % of decisions that were correctly made,</p></li>
+<li><p>TPR is the proportion of those who would have re-offended that were (correctly) denied release,</p></li>
+<li><p>FPR is the proportion of those who would not have re-offended, but were unnecessarily kept in custody,</p></li>
+<li><p>FNR is the proportion of those who would would have re-offended, who were released.</p></li>
+<li><p>PPV is the proportion of those denied release that would have actually re-offended.</p></li>
+</ul>
+<p>As mentioned in the last lecture, false positives and false negatives are qualitatively very different, making accuracy an inappropriate measure for algorithm quality. When is accuracy appropriate? When the false positives and false negatives have similar interpretations.</p>
+<p><strong>Lending Decisions</strong> Suppose you are a bank that must decide to make a loan to individuals. Here <span class="math notranslate nohighlight">\(X\)</span> is an individual financial history, <span class="math notranslate nohighlight">\(A\)</span> is any legally protected salient group, <span class="math notranslate nohighlight">\(Y\)</span> is whether a loan would be paid back, and <span class="math notranslate nohighlight">\(C(X,A)\)</span> decides if the bank should make the loan (1) or not (0). Unlike the Bail Decisions case, the positive category is a <em>good</em> outcome.</p>
+<ul class="simple">
+<li><p>A false positive is a granted loan that goes on to default.</p></li>
+<li><p>A false negative is a denied loan to someone who could pay it back.</p></li>
+<li><p>TPR is the proportion of people who could pay back loans that were actually granted loans.</p></li>
+<li><p>FPR is the proportion of people who would default that were granted loans.</p></li>
+<li><p>FNR is the proportion of people who could pay back loans that were actually denied loans.</p></li>
+<li><p>PPV is the proportion of granted loans that were paid back.</p></li>
+</ul>
+<p>Note that both false positives and false negatives are bad for <em>both</em> parties:</p>
+<ul class="simple">
+<li><p>A false positive costs the bank because they were not paid back and costs the lendee because defaulting on a loan causes financial harm.</p></li>
+<li><p>A false negative costs the bank because they lose the opportunity to collect interest on a loan that would be paid back and costs the lendee because they were denied access to credit they deserve.</p></li>
+</ul>
+<p><strong>Hiring or Admissions Decisions</strong> Suppose you are a university making decisions on which students to accept to their program. Here <span class="math notranslate nohighlight">\(X\)</span> is the applicants academic record, <span class="math notranslate nohighlight">\(A\)</span> is an legally protected salient group, <span class="math notranslate nohighlight">\(Y\)</span> represents whether the applicant would be successful in the program, and <span class="math notranslate nohighlight">\(C(X,A)\)</span> decides whether to admit (1) or reject (0) an applicant. Note that the outcome <span class="math notranslate nohighlight">\(Y\)</span> is not well-defined. We will define ‘successful’ as ‘whether the applicant would graduate from the program’; this is a proxy that deserves your critique.</p>
+<ul class="simple">
+<li><p>A false positive is an admitted applicant who wouldn’t graduate.</p></li>
+<li><p>A false negative is a rejected applicant who would have graduated from the program.</p></li>
+<li><p>TPR is the proportion of those who would graduate who were admitted to the program.</p></li>
+<li><p>FPR is the proportion of those who wouldn’t graduate who were admitted.</p></li>
+<li><p>FNR is the proportion of those would graduated who were rejected from the program.</p></li>
+<li><p>PPV is the graduate rate of admitted students.</p></li>
+</ul>
+<p>This example, while instructive is only half of the picture. Most programs have <em>capacity</em> limits that also influence how is admitted. A program may instead use such an algorithm to <em>rank</em> applicants, so that they can select from the most highly ranked students. We will look at this (very similar case) later.</p>
+<p><strong>Gender Shades</strong> Suppose an algorithm attempts to classify the identified gender of a person from an image. While there are many potential problems with such algorithms, they exist for a variety of reasons. For example, identifying the proportion of women displayed in the result of a Google image search may require using such an algorithm. Here <span class="math notranslate nohighlight">\(X\)</span> is a picture of a person, <span class="math notranslate nohighlight">\(A\)</span> is race, <span class="math notranslate nohighlight">\(Y\)</span> is whether the person identifies as a woman, and <span class="math notranslate nohighlight">\(C(X, A)\)</span> decides if a given image represents a woman (1) or not (0).</p>
+<p><em>Note</em> that those this <span class="math notranslate nohighlight">\(Y\)</span> is commonly used, it’s not a well-defined binary outcome that every individual conforms to. In fact, forcing such categorization onto individuals has broad, lasting negative impacts. This case is meant to surface this problem and how it can more severly impact people of color. See <a class="reference external" href="http://gendershades.org/overview.html">Gender Shades</a> for a more detailed story.</p>
+<ul class="simple">
+<li><p>A false positive is a person who the algorithm misgenders as a woman.</p></li>
+<li><p>A false negative is a person who the algorithm misgenders as not a woman.</p></li>
+<li><p>TPR is the proportion of those who identify as women who where correctly categorized as such.</p></li>
+<li><p>FPR is the proportion of those who do not identify as women who were categorized as women.</p></li>
+<li><p>FNR is the proportion of those who identify as women who were misgendered.</p></li>
+<li><p>PPV is the proportion of those algorithmically categorized as women who identify as women.</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2><span class="section-number">5.3. </span>Parity Measures<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>A parity measure is a simple observational criterion that requires on the evaluation metrics to be independent of the salient group <span class="math notranslate nohighlight">\(A\)</span>. Such measures are static and don’t take a changing population into account. If a parity criterion is satisfied, it <em>does not</em> mean that the algorithm is fair. These criteria are reasonable for surfacing potential inequities and are particularly useful in monitoring live, decision making systems.</p>
+<div class="section" id="demographic-parity">
+<h3><span class="section-number">5.3.1. </span>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">¶</a></h3>
+<p>The condition for demographic parity is, for all <span class="math notranslate nohighlight">\(a,b\in A\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+P(C=1|A = a) = P(C=1|A = b).
+\]</div>
+<ul class="simple">
+<li><p>Demographic parity requires equal proportion of positive predictions in each group (“No Disparate Impact”).</p></li>
+<li><p>The evaluation metric requiring parity in this case is the <em>prevalence</em>.</p></li>
+</ul>
+<p>Legally, disparate impact is a once-side reformulation of this condition, where 80% disparity is an agreed upon tolerance decided in the legal arena:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{P(C=1|A=a)}{P(C=1|A=b)} &lt; 0.8
+\]</div>
+<p>In the examples given above, the demographic parity criterion translates to:</p>
+<ul class="simple">
+<li><p>(COMPAS) Same proportion of “bail denied” in each group (race).</p></li>
+<li><p>(Lending) Same proportion of “loans granted” in each group.</p></li>
+<li><p>(Admissions) Same admission rate among each group.</p></li>
+<li><p>(Gender Shades) Same proportion of people categorized as women in each group (race).</p></li>
+</ul>
+<p>A few comments about demographic parity:</p>
+<ul class="simple">
+<li><p>When demographic parity seems appropriate, what’s being assumed about the underlying distribution (prevalence)? Why does demographic parity <em>not</em> make sense in the Gender Shades context?</p></li>
+<li><p>This condition doesn’t say anything about the quality of the predictions for each group. In fact, imposing demographic parity improperly may hide harmful impacts. For example, if an admissions classifier admits the majority group systematically, but randomly admits minority applicants, the impact would be a lower graduation rate for minority students at the expense of minority students who may be more successful in the program.</p></li>
+<li><p>If the prevalence is uneven across groups, a perfect classifier will not satisfy demographic parity.</p></li>
+</ul>
+</div>
+<div class="section" id="accuracy-parity">
+<h3><span class="section-number">5.3.2. </span>Accuracy Parity<a class="headerlink" href="#accuracy-parity" title="Permalink to this headline">¶</a></h3>
+<p>The condition for accuracy parity is, for all <span class="math notranslate nohighlight">\(a,b\in A\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+P(C = Y|A = a) = P(C = Y|A = b).
+\]</div>
+<ul class="simple">
+<li><p>Accuracy parity requires equal accuracy across groups.</p></li>
+<li><p>The evaluation metric require parity in this case is the <em>accuracy</em>.</p></li>
+</ul>
+<p>While this condition fixes some shortcomings of demographic parity, it doesn’t distinguish between error types. In the case of COMPAS, accuracy parity was approximately satisfied; the algorithm makes up for detaining releasable Black defendants by wrongly releasing white defendants. Accuracy parity is appropriate when the impacts of false positives and false negatives are similar.</p>
+</div>
+<div class="section" id="equality-of-odds-tp-parity-and-fp-parity">
+<h3><span class="section-number">5.3.3. </span>Equality of Odds (TP-Parity and FP-Parity)<a class="headerlink" href="#equality-of-odds-tp-parity-and-fp-parity" title="Permalink to this headline">¶</a></h3>
+<p>Equality of Odds is satisfied when both True Positive Parity and False Positive Parity are satisfied.</p>
+<p>The condition for True Positive parity is, for all <span class="math notranslate nohighlight">\(a,b\in A\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+P(C = 1|Y = 1, A = a) = P(C = 1|Y = 1, A = b).
+\]</div>
+<p>True positive parity is sometimes called <em>equality of opportunity</em> as it requires that the population that benefits from the decision (<span class="math notranslate nohighlight">\(Y = 1\)</span>) is given the opportunity to, regardless of the salient group. However, this is not the only notion of equality of opportunity translated to parity measures.</p>
+<p>We leave it to the reader to derive the definition for FP-parity.</p>
+</div>
+<div class="section" id="predictive-value-parity-ppv-parity-and-npv-parity">
+<h3><span class="section-number">5.3.4. </span>Predictive Value Parity (PPV-Parity and NPV-Parity)<a class="headerlink" href="#predictive-value-parity-ppv-parity-and-npv-parity" title="Permalink to this headline">¶</a></h3>
+<p>Predictive value parity is satisfied when both PPV-parity and NPV-parity are satisfied.</p>
+<p>The condition for PPV-parity is, for all <span class="math notranslate nohighlight">\(a,b\in A\)</span></p>
+<div class="math notranslate nohighlight">
+\[
+P(Y = 1| C = 1, A = a) = P(Y = 1| C = 1, A = b)
+\]</div>
+<p>PPV-parity equalizes the chance of success, given a positive prediction. For example, in the admissions example, PPV-parity requires graduation rates to be equal across groups (of admitted students).</p>
+<p><strong>COMPAS Revisited</strong> In the story on Machine Bias, there is a back-and-forth between measuring the quality of the COMPAS algorithm.</p>
+<ul class="simple">
+<li><p>Northpointe, in audits, used accuracy parity and TP-parity</p></li>
+<li><p>ProPublica asserted unfairness using FP-parity.</p></li>
+</ul>
+<p>The organizations differing interests explain the different choice in parity measures. Northpoints clients were institutions in the criminal justice system, which are largely concerned with ‘tough on crime stances’ that worry about accidentally releasing a re-offender. ProPublica was advocating for the defendants and prison inmates.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="04-compas.html" title="previous page"><span class="section-number">4. </span>COMPAS Recidivism Algorithm</a>
+    <a class='right-next' id="next-link" href="bibliography.html" title="next page"><span class="section-number">6. </span>Bibliography</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Aaron Fraenkel<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

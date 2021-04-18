@@ -257,6 +257,11 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#impossibility-results">
+   5.4. Impossibility Results
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -486,6 +491,35 @@ P(Y = 1| C = 1, A = a) = P(Y = 1| C = 1, A = b)
 </ul>
 <p>The organizations differing interests explain the different choice in parity measures. Northpoints clients were institutions in the criminal justice system, which are largely concerned with ‘tough on crime stances’ that worry about accidentally releasing a re-offender. ProPublica was advocating for the defendants and prison inmates.</p>
 </div>
+</div>
+<div class="section" id="impossibility-results">
+<h2><span class="section-number">5.4. </span>Impossibility Results<a class="headerlink" href="#impossibility-results" title="Permalink to this headline">¶</a></h2>
+<p>A natural question one might immediately ask after this onslaught of parity conditions is: can we require <em>all</em> of these requirements to hold? Will this cover all of our bases? As we see above, different statistics encode different values and these values sometimes conflict. The following result shows this is a fundamental observation:</p>
+<div class="highlight-{admonition}Theorem notranslate"><div class="highlight"><pre><span></span>Fix a non-perfect, binary classifier $C(X, A)$ and outcome $Y$. If the prevalence of $Y$ across $A$ is not equal, then:
+1. If $A$ and $Y$ are not independent, then Demographic Parity and Predictive Value cannot simultaneously hold.
+2. If $A$ and $C$ are not independent of $Y$, then Demographic Parity and Equalized Odds Parity cannot simultaneously hold.
+3. If $A$ and $Y$ are not independent, then Equalized Odds and Predictive Value Parity cannot simultaneously hold.
+</pre></div>
+</div>
+<p>Note that these requirements hold for <em>most</em> classifiers in real contexts:</p>
+<ul class="simple">
+<li><p>Classifiers are almost never perfect predictors.</p></li>
+<li><p>Base-rates of outcomes rarely are equal across groups.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are usually associated when issues of fairness are relevant for the group in question.</p></li>
+<li><p><span class="math notranslate nohighlight">\(C\)</span> and <span class="math notranslate nohighlight">\(Y\)</span> are usually associated, if your classifier is any good.</p></li>
+</ul>
+<p>The proof of the theorem follows from two algebraic identities (<span class="math notranslate nohighlight">\(p\)</span> is prevalence):</p>
+<div class="math notranslate nohighlight">
+\[
+PPV = \frac{TPR\cdot p}{TPR\cdot p + FPR\cdot(1-p)}
+\]</div>
+<div class="math notranslate nohighlight">
+\[
+NPV = \frac{(1 - FPR\cdot(1 - p)}{(1 - TPR)\cdot p + (1 - FPR)\cdot(1-p)}
+\]</div>
+<p>You can verify these identities from the definitions of the evaluation metrics. Can you verify the proof? (Write out the relevant quantities for each group and attempt to make the needed quantities equal).</p>
+<p>How do you interpret this result? Imperfect classifiers will naturally require trade-offs. In the example of the college admissions algorithm, the trade-off between Equalized Odds and Predictive Value Parity translates as follows: when admitting more qualified applicants who are able to graduate in a given group (Equalized Odds), the imperfect predictor will also admit unqualified candidates that will lower the graduation rate for that group (Predictive Value Parity).</p>
+<p>In the next section, we will interpret all of these concepts using our frameworks of distributive justice.</p>
 </div>
 </div>
 

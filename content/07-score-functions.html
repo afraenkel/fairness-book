@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>7. Score Functions, Calibration, and Fairness &#8212; Fairness &amp; Algorithmic Decision Making</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Bibliography" href="bibliography.html" />
+    <link rel="prev" title="6. Interpreting Parity Measures" href="06-interpreting-parity-measures.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fairness & Algorithmic Decision Making</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Fairness and Algorithmic Decision Making
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-frameworks.html">
+   2. What is Fairness?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-harms.html">
+   3. Harm, Discrimination, and Measurement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-compas.html">
+   4. COMPAS Recidivism Algorithm
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-parity-measures.html">
+   5. Parity Measures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-interpreting-parity-measures.html">
+   6. Interpreting Parity Measures
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   7. Score Functions, Calibration, and Fairness
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   8. Bibliography
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/07-score-functions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/afraenkel/fairness-book/main?urlpath=tree/./content/07-score-functions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#from-scores-to-classifiers">
+   7.1. From Scores to Classifiers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fairness-of-a-score-function">
+   7.2. Fairness of a Score Function
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#equalized-odds">
+     7.2.1. Equalized Odds
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calibration">
+     7.2.2. Calibration
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#calibration-within-groups">
+     7.2.3. Calibration within Groups
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#balance-for-the-postive-negative-class">
+     7.2.4. Balance for the Postive/Negative Class
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#trade-offs-for-score-functions">
+   7.3. Trade-Offs for Score Functions
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="score-functions-calibration-and-fairness">
+<h1><span class="section-number">7. </span>Score Functions, Calibration, and Fairness<a class="headerlink" href="#score-functions-calibration-and-fairness" title="Permalink to this headline">¶</a></h1>
+<p>Decision making systems, and binary classification problems in particular, often involve developing an intermediate score function. A <em>score</em> function is a real-valued function that summarizes the data in a natural way for making a (yes/no) decision. Such a function becomes a classifier by <em>thresholding</em> the score.</p>
+<p>A common score function is one that summarizes the data such that the output representing the probability that an event of interest occurs. A threshold for deciding such a decision is often set at 0.5.</p>
+<p><strong>Score function: logistic regression</strong>. Logistic regression considers a linear relationship between:</p>
+<ul class="simple">
+<li><p>predictor variables <span class="math notranslate nohighlight">\(X\)</span>,</p></li>
+<li><p>the log-odds of the event <span class="math notranslate nohighlight">\(Y = 1\)</span> occurring.
+This results in a score function that estimates the probability of <span class="math notranslate nohighlight">\(Y = 1\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+p(x) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x)}}
+\]</div>
+<p>One can derive a classifier by thresholding this score at 0.5:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C(x) = \left\{\begin{matrix}
+0 {\rm\ if\ } p &lt; 0.5 \\ 
+1 {\rm\ if\ } p \geq 0.5 \\ 
+\end{matrix}\right.
+\end{split}\]</div>
+<p><img alt="image.png" src="content/attachment:image.png" /></p>
+<p><strong>Conditional Expectation</strong> Given historical data, the conditional expectation defines a natural scoring function: it’s exactly the expectation of the outcome, given what’s historically been observed. The formula for the score is:</p>
+<div class="math notranslate nohighlight">
+\[
+S(x) = E[Y | X = x]
+\]</div>
+<p>This function is essentially a ‘look-up table’ of joint empirical probabilities; given an occurrence <span class="math notranslate nohighlight">\(X\)</span>, look up the average outcome of similar occurrences.</p>
+<p>Note: if <span class="math notranslate nohighlight">\(Y\)</span> is binary, this is interpretable as a ‘best guess’ probability.</p>
+<div class="section" id="from-scores-to-classifiers">
+<h2><span class="section-number">7.1. </span>From Scores to Classifiers<a class="headerlink" href="#from-scores-to-classifiers" title="Permalink to this headline">¶</a></h2>
+<p>Given a score function <span class="math notranslate nohighlight">\(S\)</span> define a classifier <span class="math notranslate nohighlight">\(C_t\)</span> by thresholding at <span class="math notranslate nohighlight">\(t\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C_t(x) = \left\{\begin{matrix}
+0 {\rm\ if\ } S(x) &lt; t \\ 
+1 {\rm\ if\ } S(x) \geq t \\ 
+\end{matrix}\right.
+\end{split}\]</div>
+<p>How do you choose <span class="math notranslate nohighlight">\(t\)</span>?</p>
+<p>If <span class="math notranslate nohighlight">\(S\)</span> represents a probability, then <span class="math notranslate nohighlight">\(t\)</span> represents how confident for <span class="math notranslate nohighlight">\(C_t\)</span> to make a certain decision. This generally depends on the utility of the context. How expensive is the cost for accepting a negative (FP)? for rejecting a positive (FP)? Choosing such a threshold is called choosing an “operating point”.</p>
+<p>The ROC Curve (“Receiver Operating Characteristic”) captures the trade-off between choice of threshold <span class="math notranslate nohighlight">\(t\)</span> for <span class="math notranslate nohighlight">\(S\)</span> and the resulting TPR/FPR for <span class="math notranslate nohighlight">\(C_t\)</span>. It is a curve parameterized by <span class="math notranslate nohighlight">\(t\)</span>: every choice of threshold results in a classifier with a possibly different TPR/FPR, which is a point on the ROC curve.</p>
+<p>For example, choosing</p>
+<ul class="simple">
+<li><p>the threshold <span class="math notranslate nohighlight">\(t = max_x{S(x)}\)</span>, results in a classifier <span class="math notranslate nohighlight">\(C_t\)</span> that always predicts 0. The TPR is therefore 0 and the FPR 0. This is the point at the origin.</p></li>
+<li><p>the threshold <span class="math notranslate nohighlight">\(t = min_x{S(x)}\)</span>, results in a classifier <span class="math notranslate nohighlight">\(C_t\)</span> that always predicts 1. The TPR is therefore 1 and the FPR 1. This is the point at <span class="math notranslate nohighlight">\((1,1)\)</span>.</p></li>
+<li><p>Intermediate thresholds yield classifiers with <span class="math notranslate nohighlight">\((TPR, FPR)\)</span> in the unit square.</p></li>
+</ul>
+<p>The more of the curve near (0,1), the better classifiers <span class="math notranslate nohighlight">\(C_t\)</span> the score function <span class="math notranslate nohighlight">\(S\)</span> creates, as seen in the graph below.</p>
+<p><img alt="image.png" src="content/attachment:image.png" /></p>
+<p>The <em>Area Under the Curve</em> (AUC) represents how predictive the score function is along all possible thresholds.</p>
+<p>How does a data scientist choose the best threshold? Typically, one chooses a threshold from a score function by</p>
+<ul class="simple">
+<li><p>Measuring the utility of FN/FP and choosing a classifier that realizes the desired balance between them.</p></li>
+<li><p>Choosing the classifier of highest accuracy (if FP and FN are similar cost).</p></li>
+</ul>
+</div>
+<div class="section" id="fairness-of-a-score-function">
+<h2><span class="section-number">7.2. </span>Fairness of a Score Function<a class="headerlink" href="#fairness-of-a-score-function" title="Permalink to this headline">¶</a></h2>
+<p>One can ask whether a score function satisfies similar notions to the parity conditions from previous lectures. We take two approaches:</p>
+<ol class="simple">
+<li><p>Can construct a classifier from the score function that satisfies given parity conditions?</p></li>
+<li><p>Does the distribution of scores themselves satisfy parity, in some sense?</p></li>
+</ol>
+<p>These approaches are useful, as they point to ways of building a fair classifier from one that’s unfair via post-processing (changing a threshold doesn’t require knowing anything about the model).</p>
+<p>We will approach this post-processing by using <em>derived classfiers</em> <span class="math notranslate nohighlight">\(Y = F(S, A)\)</span> that result from applying a function to the score function <span class="math notranslate nohighlight">\(S\)</span>. For example:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(F\)</span> may choose different thresholds <span class="math notranslate nohighlight">\(t\)</span> for individuals in different groups <span class="math notranslate nohighlight">\(a,b\in A\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(F\)</span> may apply some randomization procedure for deciding which prediction to use from an underlying set of thresholds.</p></li>
+</ul>
+<div class="section" id="equalized-odds">
+<h3><span class="section-number">7.2.1. </span>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h3>
+<p>Given a score function <span class="math notranslate nohighlight">\(S\)</span>, how can we choose a threshold <span class="math notranslate nohighlight">\(t\)</span> so <span class="math notranslate nohighlight">\(C_t\)</span> satisfies equalized odds? Recall that Equalized Odds requires parity of FNR/FPR across groups. If one considers the score function <span class="math notranslate nohighlight">\(S\)</span> restricted to the two groups separately <span class="math notranslate nohighlight">\(S|a\)</span>, <span class="math notranslate nohighlight">\(S|b\)</span>, then we can plot the ROC curve for each score function:</p>
+<p><img alt="" src="https://fairmlbook.org/assets/roc_curve_2.svg" />
+(Figure from <span id="id1">[<a class="reference internal" href="bibliography.html#id16"><span>BHN19</span></a>]</span>)</p>
+<p>The point of intersection of the two ROC curves represents classifiers for the two groups that satisfies Equality of Odds (since FNR = 1 - TPR). However, these classifiers may have different thresholds. A single classifier satisfying Equality of Odds is obtained via a two-threshold derived classifier:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+F(x, c) = \left\{\begin{matrix}
+0 {\rm\ if\ } (S|_a(x) &lt; t_a) {\rm\ and\ } c = a \\
+0 {\rm\ if\ } (S|_b(x) &lt; t_b) {\rm\ and\ } c = b \\ 
+1 {\rm\ if\ } (S|_a(x) \geq t_a  {\rm\ and\ } c = a\\ 
+1 {\rm\ if\ } (S|_b(x) \geq t_b)  {\rm\ and\ } c = b \\ 
+\end{matrix}\right.
+\end{split}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(t_a, t_b\)</span> are the thresholds where the two curves intersect.</p>
+<p>What if the two ROC curves don’t intersect? Or if you have specific requirements for FPR and TPR from the model? You can choose a model from any point <em>under</em> both of the ROC curves.</p>
+<p>If two classifiers <span class="math notranslate nohighlight">\(C_a, C_b\)</span> are chosen from the ROC curves of groups <span class="math notranslate nohighlight">\(a,b\)</span> respectively, then all classifiers on the line joining <span class="math notranslate nohighlight">\(C_a\)</span> and <span class="math notranslate nohighlight">\(C_b\)</span> are realized by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+C(x) = \left\{\begin{matrix}
+C_a(x) {\rm\ choose\ with\ probability\ } p \\
+C_b(x) {\rm\ choose\ with\ probability\ } (1 - p) \\
+\end{matrix}\right.
+\end{split}\]</div>
+<p>Where <span class="math notranslate nohighlight">\(0 \leq p \leq 1\)</span>. Note that a classifier <em>under</em> the ROC curve will sacrifice utility: the TPR/FPR are lower than optimal.</p>
+</div>
+<div class="section" id="calibration">
+<h3><span class="section-number">7.2.2. </span>Calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h3>
+<p>Recall that Predictive Value Parity states, for all <span class="math notranslate nohighlight">\(a,b\)</span> in <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+P(Y = 1|C = 1, A = a) = P(Y = 1| C = 1, B = b) \\
+P(Y = 1|C = 0, A = a) = P(Y = 1| C = 0, B = b)
+\end{split}\]</div>
+<p>This is a special case, for binary classifiers of the condition “the true outcome <span class="math notranslate nohighlight">\(Y\)</span> is independent of <span class="math notranslate nohighlight">\(A\)</span>, conditional on the prediction <span class="math notranslate nohighlight">\(C\)</span>. This notion is related to a concept called <em>calibration</em>.</p>
+<p>A score function <span class="math notranslate nohighlight">\(S\)</span> is <em>calibrated</em> if for all scores <span class="math notranslate nohighlight">\(s\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y = 1|S = s) = s
+\]</div>
+<p>When <span class="math notranslate nohighlight">\(S\)</span> is interpretable as a probability, this means that the positive proportion of all individuals given score <span class="math notranslate nohighlight">\(s\)</span> should itself be <span class="math notranslate nohighlight">\(s\)</span>. For example, if the COMPAS score is calibrated, then among the defendants receiving the (lowest) risk score of 0.1, those that re-offended make up only 10% of that group. Similarly, those among the (highest) risk score 0.9 should consist mostly (90%) of those that actually did re-offend.</p>
+<p><em>Note:</em> An arbitrary score function can be calibrated via applying a scaling procedure called Platt scaling.</p>
+</div>
+<div class="section" id="calibration-within-groups">
+<h3><span class="section-number">7.2.3. </span>Calibration within Groups<a class="headerlink" href="#calibration-within-groups" title="Permalink to this headline">¶</a></h3>
+<p>One notion of fairness for a score function is <em>calibrations within groups</em>:</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y = 1| S = s, A = a) = s, \quad {\rm for\ all\ } s\in\mathbb{R}, a\in A
+\]</div>
+<p>Calibration requires similar scores to be meaningful. Calibration within groups requires similar scores be meaningful across groups as well. Calibration within groups for a score function implies that all induced classifiers satisfy predictive value parity.</p>
+</div>
+<div class="section" id="balance-for-the-postive-negative-class">
+<h3><span class="section-number">7.2.4. </span>Balance for the Postive/Negative Class<a class="headerlink" href="#balance-for-the-postive-negative-class" title="Permalink to this headline">¶</a></h3>
+<p>Another notion of fairness for a score function is <em>balance for the positive (or negative) class</em>. This requires the average score of those who belong to the positive (negative) class be the same across groups:</p>
+<div class="math notranslate nohighlight">
+\[
+E[S|Y=1, A=a] = E[S|Y = 1, A = b]
+\]</div>
+<p>The condition is analogous for the negative class.</p>
+<p>Balance for the positive/negative class is a continuous version of Equalized Odds. Indeed, it requires similar predictions for those with similar <em>true</em> behavior, across groups.</p>
+</div>
+</div>
+<div class="section" id="trade-offs-for-score-functions">
+<h2><span class="section-number">7.3. </span>Trade-Offs for Score Functions<a class="headerlink" href="#trade-offs-for-score-functions" title="Permalink to this headline">¶</a></h2>
+<p>An analogous version for score functions of the trade-offs theorem is found in <span id="id2">[<a class="reference internal" href="bibliography.html#id17"><span>KMR16</span></a>]</span>.</p>
+<p>Suppose a score function S satisfies the following three conditions:</p>
+<ul class="simple">
+<li><p>Calibration from within groups</p></li>
+<li><p>Balance for the positive class</p></li>
+<li><p>Balance for the negative class.</p></li>
+</ul>
+<p>Then</p>
+<ul class="simple">
+<li><p>the score function must define a perfect predictor, or</p></li>
+<li><p>the groups have equal base-rates</p></li>
+</ul>
+<p>This theorem is stronger than the trade-offs theorem for classifiers. One the one hand, score functions define many potential classifiers; this theorem makes a statement about all of these at once. On the other hand, the theorem also has an <em>approximate</em> version:</p>
+<ul class="simple">
+<li><p>The further the base-rates are from equal, the more severe the failure of at least one of the conditions.</p></li>
+<li><p>The further the classifier is from perfect, the more severe the failure of at least one of the conditions.</p></li>
+</ul>
+<p>For proofs of these observations, see <span id="id3">[<a class="reference internal" href="bibliography.html#id17"><span>KMR16</span></a>]</span>.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="06-interpreting-parity-measures.html" title="previous page"><span class="section-number">6. </span>Interpreting Parity Measures</a>
+    <a class='right-next' id="next-link" href="bibliography.html" title="next page"><span class="section-number">8. </span>Bibliography</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Aaron Fraenkel<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

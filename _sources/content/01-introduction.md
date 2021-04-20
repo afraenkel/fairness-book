@@ -70,7 +70,7 @@ The ability of a data scientist to surface inequities in the data they
 study is not only necessary for understanding the consequences of
 their (algorithmic) decisions, it's also a super-power waiting to be
 used for good. Such studies raise awareness of inequities, help build
-movements demanding change, and aid your fellow humans in bettoring
+movements demanding change, and aid your fellow humans in bettering
 their lives.
 
 ### Algorithmic decisions
@@ -385,3 +385,7 @@ Moving from the decision step to the data step:
   to experience poor decisions in later models?
 * If the decisions only capture partial ground truth, is this
   introducing bias in future labels?
+
+```python
+
+```

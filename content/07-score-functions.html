@@ -294,7 +294,7 @@ C(x) = \left\{\begin{matrix}
 1 {\rm\ if\ } p \geq 0.5 \\ 
 \end{matrix}\right.
 \end{split}\]</div>
-<p><img alt="image.png" src="content/attachment:image.png" /></p>
+<p><img alt="image.png" src="../_images/07_threshold.png" /></p>
 <p><strong>Conditional Expectation</strong> Given historical data, the conditional expectation defines a natural scoring function: it’s exactly the expectation of the outcome, given what’s historically been observed. The formula for the score is:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -322,7 +322,7 @@ C_t(x) = \left\{\begin{matrix}
 <li><p>Intermediate thresholds yield classifiers with <span class="math notranslate nohighlight">\((TPR, FPR)\)</span> in the unit square.</p></li>
 </ul>
 <p>The more of the curve near (0,1), the better classifiers <span class="math notranslate nohighlight">\(C_t\)</span> the score function <span class="math notranslate nohighlight">\(S\)</span> creates, as seen in the graph below.</p>
-<p><img alt="image.png" src="content/attachment:image.png" /></p>
+<p><img alt="image.png" src="../_images/07_roc.png" /></p>
 <p>The <em>Area Under the Curve</em> (AUC) represents how predictive the score function is along all possible thresholds.</p>
 <p>How does a data scientist choose the best threshold? Typically, one chooses a threshold from a score function by</p>
 <ul class="simple">

@@ -1,0 +1,1624 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>8. COMPAS Analysis II &#8212; Fairness &amp; Algorithmic Decision Making</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.f658d18f9b420779cfdf24aa0a7e2d77.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.e7340bb3dbd8dde6db86f25597f54a1b.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.d3f166471bb80abb5163.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.7d483ff0a819d6edff12ce0b1ead3928.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="9. Bibliography" href="bibliography.html" />
+    <link rel="prev" title="7. Score Functions, Calibration, and Fairness" href="07-score-functions.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Fairness & Algorithmic Decision Making</h1>
+  
+</a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+    <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Fairness and Algorithmic Decision Making
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01-introduction.html">
+   1. Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02-frameworks.html">
+   2. What is Fairness?
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03-harms.html">
+   3. Harm, Discrimination, and Measurement
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04-compas.html">
+   4. COMPAS Recidivism Algorithm
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="05-parity-measures.html">
+   5. Parity Measures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="06-interpreting-parity-measures.html">
+   6. Interpreting Parity Measures
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="07-score-functions.html">
+   7. Score Functions, Calibration, and Fairness
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   8. COMPAS Analysis II
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="bibliography.html">
+   9. Bibliography
+  </a>
+ </li>
+</ul>
+
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/content/08-compas-2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+            <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                    data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                    title="Fullscreen mode"><i
+                        class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/afraenkel/fairness-book/main?urlpath=tree/./content/08-compas-2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i>
+            Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#parity-measures">
+   8.1. Parity Measures
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calibration">
+   8.2. Calibration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#balance-of-positive-negative-class">
+   8.3. Balance of positive/negative class
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#roc-curve">
+   8.4. ROC Curve
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#choosing-a-model-to-be-completed">
+   8.5. Choosing a model (To be completed)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#single-threshold-model">
+     8.5.1. Single Threshold Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#roc-curve-with-best-single-threshold">
+     8.5.2. ROC Curve with best single threshold
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#threshold-for-each-group">
+     8.5.3. Threshold for each group
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#group-aware-thresholds">
+     8.5.4. Group-aware thresholds
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#tpr-parity-fpr-parity-equalized-odds">
+     8.5.5. TPR-Parity / FPR-Parity / Equalized Odds
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#demographic-parity">
+     8.5.6. Demographic Parity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#proportion-white-for-each-decile">
+     8.5.7. Proportion White for each decile:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#what-thresholds-yield-the-best-model-subject-to-demographic-parity">
+     8.5.8. What thresholds yield the best model, subject to Demographic Parity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     8.5.9. Demographic Parity
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+        
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># HIDDEN</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">metrics</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">rc</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">:(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">)})</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://raw.githubusercontent.com/propublica/compas-analysis/master/compas-scores-two-years.csv&#39;</span>
+<span class="n">recidivism</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;first&#39;</span><span class="p">,</span> <span class="s1">&#39;last&#39;</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">pred_recid</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;score_text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;Medium&#39;</span><span class="p">,</span> <span class="s1">&#39;High&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span>
+<span class="p">)</span>
+
+<span class="c1"># order for bar charts</span>
+<span class="n">order</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">,</span> <span class="s1">&#39;Hispanic&#39;</span><span class="p">,</span> <span class="s1">&#39;Asian&#39;</span><span class="p">,</span> <span class="s1">&#39;Native American&#39;</span><span class="p">,</span> <span class="s1">&#39;Other&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="compas-analysis-ii">
+<h1><span class="section-number">8. </span>COMPAS Analysis II<a class="headerlink" href="#compas-analysis-ii" title="Permalink to this headline">¶</a></h1>
+<p>In this section, we revisit the case of COMPAS, paying attention to observations made by parity criteria and understanding to what extent that existing COMPAS scores can give rise to fairer decisions.</p>
+<div class="section" id="parity-measures">
+<h2><span class="section-number">8.1. </span>Parity Measures<a class="headerlink" href="#parity-measures" title="Permalink to this headline">¶</a></h2>
+<p>First, we examine the parity of recommended decisions by the COMPAS score, interpreting the results in turn. We will define the recommended decision to one that, according to ProPublica, broadly falls in line with usage in Broward County:</p>
+<ul class="simple">
+<li><p>An individual is predicted to re-offend if their COMPAS score is greater than or equal to 5. This corresponds to COMPAS labeling an individual medium or high risk.</p></li>
+<li><p>An individual is predicted to <em>not</em> re-offend if their COMPAS score is less than 5. This corresponds to COMPAS labeling an individual low risk.</p></li>
+</ul>
+<p>Each parity measure is calculated with 95% confidence intervals.</p>
+<p><strong>Demographic Parity</strong>. The rates of predicted re-offense varies drastically:</p>
+<ol class="simple">
+<li><p>Approximately 60% of Black and Native American defendants are predicted to re-offend</p></li>
+<li><p>Approximately 30% of White, Hispanic, and Asian defendants are predicted to re-offend</p></li>
+</ol>
+<p>Arguing for Demographic Parity to hold in this context is uncommon, as each group has different <em>true</em> rates of re-offense. In a fair society, one would assume that the crime-rates across different groups is identical. However, this is not currently the case. While imposing demographic parity as a long-term policy initiative is common for decisions related to <em>opportunity</em>, it makes less sense as a criteria for decisions that remove fundamental freedoms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">recidivism</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;pred_recid&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Demographic Parity Criteria&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_3_0.png" src="../_images/08-compas-2_3_0.png" />
+</div>
+</div>
+<p><strong>Accuracy Parity</strong>. The rates of accurate predictions are the same among groups, within the standard of error. Northpointe used this criteria when developing the COMPAS model. The model arrives at the <em>right</em> prediction 60% of the time.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">recidivism</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">accuracy</span><span class="o">=</span><span class="p">(</span><span class="o">~</span><span class="p">(</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;pred_recid&#39;</span><span class="p">])</span> <span class="o">%</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;accuracy&#39;</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Accuracy Parity Criteria&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_5_0.png" src="../_images/08-compas-2_5_0.png" />
+</div>
+</div>
+<p><strong>Predictive Value Parity</strong>. COMPAS largely maintains consistent rates of recidivism across groups, among populations they deem high and low risk. That is:</p>
+<ul class="simple">
+<li><p>Among those labeled high risk by COMPAS, approximately 60% re-offended</p></li>
+<li><p>Among those labeled low risk by COMPAS, approximately 60% did not re-offend.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">a1</span> <span class="o">=</span> <span class="n">recidivism</span><span class="p">[</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;pred_recid&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">PPV</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;PPV&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;PPV&#39;</span><span class="p">)</span>
+
+<span class="n">a2</span> <span class="o">=</span> <span class="n">recidivism</span><span class="p">[</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;pred_recid&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">NPV</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;NPV&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;NPV&#39;</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Predictive Value Parity Criteria&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_7_0.png" src="../_images/08-compas-2_7_0.png" />
+</div>
+</div>
+<p><strong>Equalized Odds</strong>. The False Positive and False Negative rates vary significantly across groups and Black defendants experience consistently unfair treatment as compared to other defendants.</p>
+<ul class="simple">
+<li><p>White defendants are improperly released 66% more often than Black defendants.</p></li>
+<li><p>Black defendants are improperly denied release twice as often as White defendants.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">a1</span> <span class="o">=</span> <span class="n">recidivism</span><span class="p">[</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">FN</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mi">1</span> <span class="o">-</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;pred_recid&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;FN&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;False Negative&#39;</span><span class="p">)</span>
+
+<span class="n">a2</span> <span class="o">=</span> <span class="n">recidivism</span><span class="p">[</span><span class="n">recidivism</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">FP</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;pred_recid&#39;</span><span class="p">])</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;FP&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;False Positive&#39;</span><span class="p">);</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Equalized Odds Criteria&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_9_0.png" src="../_images/08-compas-2_9_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="calibration">
+<h2><span class="section-number">8.2. </span>Calibration<a class="headerlink" href="#calibration" title="Permalink to this headline">¶</a></h2>
+<p>The COMPAS scores mean to capture the likelihood of re-offense by defendants. On the one hand, the distribution of risk across the population differs by group:</p>
+<ul class="simple">
+<li><p>COMPAS scores deem white defendants primarily low risk (60%), with very few predicted as high risk (10%).</p></li>
+<li><p>Black defendants risk scores are roughly uniformly distributed (40% low risk; 30% high risk).</p></li>
+</ul>
+<p>Given all individuals considered here have been arrested, this difference likely points to differences in the behavior of the population (e.g. arrested for different crimes), as well as differences in what the COMPAS score attempts to measure. This difference in scores leads to drastically different racial make-up per decile.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="s1">&#39;is_recid&#39;</span><span class="p">]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">recidivism</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">])]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">a1</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;race&#39;</span><span class="p">])[</span><span class="s1">&#39;decile_score&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;proportion&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a1</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span> <span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;proportion&#39;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribution of Scores by Race&#39;</span><span class="p">)</span>
+
+<span class="n">a2</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;decile_score&#39;</span><span class="p">])[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;proportion&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">a2</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span> <span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;proportion&#39;</span><span class="p">,</span><span class="n">hue</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">);</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Distribution of Race by Score&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_12_0.png" src="../_images/08-compas-2_12_0.png" />
+</div>
+</div>
+<p>The condition for calibration given in ___ requires the proportion of recidivism in each decile grow with the decile. That is,</p>
+<div class="math notranslate nohighlight">
+\[
+P(Y = 1|S = p) = p
+\]</div>
+<p>In each COMPAS score, the recidivism rate increases approximately 10% with each decile, though the condition does not strictly hold.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;is_recid&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Recidivism rate of each decile (calibration)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_14_0.png" src="../_images/08-compas-2_14_0.png" />
+</div>
+</div>
+<p>COMPAS likely used a related notion of calibration. Among all re-offending individuals, <span class="math notranslate nohighlight">\(p\)</span>% of individuals have a score at least as high as <span class="math notranslate nohighlight">\(p\)</span>. Thus, if a threshold for a classifier is set at score <span class="math notranslate nohighlight">\(p\)</span>, that classifier would correctly predict <span class="math notranslate nohighlight">\(p\)</span>% of all re-offenses.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tots_by_dec</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;decile_score&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_recid</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+
+<span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f recidivism above each decile&#39;</span>
+<span class="p">(</span><span class="n">tots_by_dec</span><span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">cumsum</span><span class="p">()</span> <span class="o">/</span> <span class="n">tots_by_dec</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_16_0.png" src="../_images/08-compas-2_16_0.png" />
+</div>
+</div>
+<p>Within each group, the recidivism rates for each decile are similar:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;is_recid&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;group-wise recidividsm rates by decile&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_18_0.png" src="../_images/08-compas-2_18_0.png" />
+</div>
+</div>
+<p>On the other hand, the proportion of re-offenders below each potential threshold varies by race. Almost 40% of all recidivism in the Black population lies in the top three deciles, whereas the same 40% in the White population requires thresholding at the top five deciles.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="s1">&#39;decile_score&#39;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">is_recid</span>
+    <span class="o">.</span><span class="n">sum</span><span class="p">()</span>    
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;tot&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s1">&#39;tot&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span>
+    <span class="o">.</span><span class="n">cumsum</span><span class="p">()</span>
+<span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">% o</span><span class="s1">f recidivism above each decile by race&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_20_0.png" src="../_images/08-compas-2_20_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="balance-of-positive-negative-class">
+<h2><span class="section-number">8.3. </span>Balance of positive/negative class<a class="headerlink" href="#balance-of-positive-negative-class" title="Permalink to this headline">¶</a></h2>
+<p>Much like the equalized odds parity condition, balance of positive/negative class requires scores to be similar, conditional on the true outcome. COMPAS assigns much higher risk to Black defendants, regardless of whether they re-offended or not.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;is_recid&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">ax1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;balance of pos/neg class (population)&#39;</span><span class="p">)</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">barplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;is_recid&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;balance of pos/neg class by race&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_22_0.png" src="../_images/08-compas-2_22_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="roc-curve">
+<h2><span class="section-number">8.4. </span>ROC Curve<a class="headerlink" href="#roc-curve" title="Permalink to this headline">¶</a></h2>
+<p>Judges use COMPAS deciles to make decisions, as well the text descriptors (“Low, Medium, High Risk”) offered by Northpointe.  These text descriptors correspond to score thresholds of 4 and 7.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">recidivism</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;decile_score&#39;</span><span class="p">,</span> <span class="s1">&#39;score_text&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;counts&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">to_frame</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>counts</th>
+    </tr>
+    <tr>
+      <th>decile_score</th>
+      <th>score_text</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <th>Low</th>
+      <td>1440</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <th>Low</th>
+      <td>941</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <th>Low</th>
+      <td>747</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <th>Low</th>
+      <td>769</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <th>Medium</th>
+      <td>681</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <th>Medium</th>
+      <td>641</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <th>Medium</th>
+      <td>592</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <th>High</th>
+      <td>512</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <th>High</th>
+      <td>508</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <th>High</th>
+      <td>383</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>What if we could provide judges with an interpretation of these scores that are more sensitive to race? To this aim, we will analyze the scores of the COMPAS model more broadly. The ROC curve for the COMPAS score parameterizes prediction performance (TPR, FPR) by score thresholds:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decile_score&#39;</span><span class="p">])</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tpr</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">fpr</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;ROC Curve: COMPAS</span><span class="se">\n</span><span class="s1"> AUC: </span><span class="si">%f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">metrics</span><span class="o">.</span><span class="n">auc</span><span class="p">(</span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">)))</span>
+<span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;FPR&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;TPR&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_26_0.png" src="../_images/08-compas-2_26_0.png" />
+</div>
+</div>
+<p>Calculating separate ROC curves by group, we see similar overall performance. However, we do see two important differences in the curves:</p>
+<ol class="simple">
+<li><p>The curve corresponding to the White population has higher TPR at <em>low</em> values of FPR.</p></li>
+<li><p>The curve corresponding to the Black population has higher TPR at <em>high</em> values of FPR.</p></li>
+</ol>
+<p>Any realistic choice of threshold (operating point) would fix a relatively low FPR, resulting in a model that performs better on the White population.</p>
+<p>However, one sees a large difference in model characteristics when keeping track of where the score thresholds lie. The granularity of the thresholds are concentrated at opposite ends of the respective curves; the scores mean different things for the different groups.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_roc</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    
+    <span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;decile_score&#39;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;fpr&#39;</span><span class="p">:</span> <span class="n">fpr</span><span class="p">,</span> <span class="s1">&#39;tpr&#39;</span><span class="p">:</span> <span class="n">tpr</span><span class="p">,</span> <span class="s1">&#39;thresh&#39;</span><span class="p">:</span> <span class="n">thresh</span><span class="p">})</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;race&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">calc_roc</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">a_blk</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;African-American&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">a_wht</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;race&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">a_blk</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">a_wht</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ROC Curves by Race&#39;</span><span class="p">)</span>
+
+<span class="n">auc_blk</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">auc</span><span class="p">(</span><span class="n">a_blk</span><span class="p">[</span><span class="s1">&#39;fpr&#39;</span><span class="p">],</span> <span class="n">a_blk</span><span class="p">[</span><span class="s1">&#39;tpr&#39;</span><span class="p">])</span>
+<span class="n">auc_wht</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">auc</span><span class="p">(</span><span class="n">a_wht</span><span class="p">[</span><span class="s1">&#39;fpr&#39;</span><span class="p">],</span> <span class="n">a_wht</span><span class="p">[</span><span class="s1">&#39;tpr&#39;</span><span class="p">])</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;African-American (AUC: </span><span class="si">%f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">auc_blk</span><span class="p">,</span> <span class="s1">&#39;Caucasian (AUC: </span><span class="si">%f</span><span class="s1">)&#39;</span> <span class="o">%</span> <span class="n">auc_wht</span><span class="p">]);</span>
+
+<span class="n">a_blk</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">a_blk</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;blue&#39;</span><span class="p">)</span>
+
+<span class="n">a_wht</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">a_wht</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ROC Curves by Race (with score thresholds)&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_29_0.png" src="../_images/08-compas-2_29_0.png" />
+</div>
+</div>
+<p>The differences in performance for given thresholds are easily read off the rows of the table:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">a_wht</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;thresh&#39;</span><span class="p">),</span> <span class="n">a_blk</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;thresh&#39;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="s1">&#39;Black&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">White</th>
+      <th colspan="2" halign="left">Black</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>fpr</th>
+      <th>tpr</th>
+      <th>fpr</th>
+      <th>tpr</th>
+    </tr>
+    <tr>
+      <th>thresh</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>10</th>
+      <td>0.012596</td>
+      <td>0.044878</td>
+      <td>0.031928</td>
+      <td>0.114440</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.032890</td>
+      <td>0.112195</td>
+      <td>0.093373</td>
+      <td>0.250982</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.052484</td>
+      <td>0.196098</td>
+      <td>0.153012</td>
+      <td>0.378684</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.087474</td>
+      <td>0.286829</td>
+      <td>0.240964</td>
+      <td>0.503438</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.143457</td>
+      <td>0.398049</td>
+      <td>0.334337</td>
+      <td>0.615914</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.231631</td>
+      <td>0.510244</td>
+      <td>0.439157</td>
+      <td>0.709725</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.344297</td>
+      <td>0.631220</td>
+      <td>0.556024</td>
+      <td>0.803536</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.466060</td>
+      <td>0.727805</td>
+      <td>0.665663</td>
+      <td>0.884086</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.631211</td>
+      <td>0.849756</td>
+      <td>0.820482</td>
+      <td>0.950884</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="choosing-a-model-to-be-completed">
+<h2><span class="section-number">8.5. </span>Choosing a model (To be completed)<a class="headerlink" href="#choosing-a-model-to-be-completed" title="Permalink to this headline">¶</a></h2>
+<p>Is there a model from these scores that may be ‘more fair’ than the existing COMPAS recommendations?</p>
+<ul class="simple">
+<li><p>What is the ‘best’ model?</p></li>
+<li><p>Need to calculate the utility</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calc_utility</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">wt</span><span class="p">):</span>
+
+    <span class="k">return</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">],</span> 
+        <span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">decile_score</span> <span class="o">&gt;=</span> <span class="n">thresh</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span> 
+        <span class="n">sample_weight</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="n">wt</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+    <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">find_best_thresh</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">wt</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    
+    <span class="n">thresh</span><span class="p">,</span> <span class="n">util</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">calc_utility</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">wt</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">m</span> <span class="o">&gt;=</span> <span class="n">util</span><span class="p">:</span>
+            <span class="n">util</span> <span class="o">=</span> <span class="n">m</span>
+            <span class="n">thresh</span> <span class="o">=</span> <span class="n">k</span>
+    
+    <span class="k">return</span> <span class="n">thresh</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="mi">2</span><span class="p">)):[</span><span class="n">calc_utility</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">)]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.01</span><span class="p">,</span><span class="mf">0.1</span><span class="p">)}</span>
+<span class="p">)</span><span class="o">.</span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+      <th>4</th>
+      <th>5</th>
+      <th>6</th>
+      <th>7</th>
+      <th>8</th>
+      <th>9</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0.0</th>
+      <td>0.000000</td>
+      <td>0.267077</td>
+      <td>0.426675</td>
+      <td>0.541923</td>
+      <td>0.656847</td>
+      <td>0.753966</td>
+      <td>0.830042</td>
+      <td>0.893493</td>
+      <td>0.934607</td>
+      <td>0.977015</td>
+    </tr>
+    <tr>
+      <th>0.1</th>
+      <td>0.090159</td>
+      <td>0.325675</td>
+      <td>0.463197</td>
+      <td>0.560308</td>
+      <td>0.655592</td>
+      <td>0.734942</td>
+      <td>0.794056</td>
+      <td>0.841566</td>
+      <td>0.868781</td>
+      <td>0.897146</td>
+    </tr>
+    <tr>
+      <th>0.2</th>
+      <td>0.165406</td>
+      <td>0.374581</td>
+      <td>0.493678</td>
+      <td>0.575651</td>
+      <td>0.654544</td>
+      <td>0.719064</td>
+      <td>0.764022</td>
+      <td>0.798228</td>
+      <td>0.813844</td>
+      <td>0.830487</td>
+    </tr>
+    <tr>
+      <th>0.3</th>
+      <td>0.229157</td>
+      <td>0.416016</td>
+      <td>0.519502</td>
+      <td>0.588651</td>
+      <td>0.653657</td>
+      <td>0.705612</td>
+      <td>0.738577</td>
+      <td>0.761510</td>
+      <td>0.767300</td>
+      <td>0.774012</td>
+    </tr>
+    <tr>
+      <th>0.4</th>
+      <td>0.283860</td>
+      <td>0.451570</td>
+      <td>0.541661</td>
+      <td>0.599805</td>
+      <td>0.652896</td>
+      <td>0.694070</td>
+      <td>0.716743</td>
+      <td>0.730004</td>
+      <td>0.727361</td>
+      <td>0.725553</td>
+    </tr>
+    <tr>
+      <th>0.5</th>
+      <td>0.331313</td>
+      <td>0.482412</td>
+      <td>0.560883</td>
+      <td>0.609482</td>
+      <td>0.652235</td>
+      <td>0.684057</td>
+      <td>0.697803</td>
+      <td>0.702673</td>
+      <td>0.692716</td>
+      <td>0.683516</td>
+    </tr>
+    <tr>
+      <th>0.6</th>
+      <td>0.372868</td>
+      <td>0.509420</td>
+      <td>0.577716</td>
+      <td>0.617955</td>
+      <td>0.651657</td>
+      <td>0.675288</td>
+      <td>0.681217</td>
+      <td>0.678740</td>
+      <td>0.662376</td>
+      <td>0.646703</td>
+    </tr>
+    <tr>
+      <th>0.7</th>
+      <td>0.409561</td>
+      <td>0.533268</td>
+      <td>0.592580</td>
+      <td>0.625437</td>
+      <td>0.651146</td>
+      <td>0.667546</td>
+      <td>0.666571</td>
+      <td>0.657607</td>
+      <td>0.635587</td>
+      <td>0.614198</td>
+    </tr>
+    <tr>
+      <th>0.8</th>
+      <td>0.442197</td>
+      <td>0.554480</td>
+      <td>0.605800</td>
+      <td>0.632092</td>
+      <td>0.650692</td>
+      <td>0.660659</td>
+      <td>0.653545</td>
+      <td>0.638810</td>
+      <td>0.611759</td>
+      <td>0.585287</td>
+    </tr>
+    <tr>
+      <th>0.9</th>
+      <td>0.471415</td>
+      <td>0.573470</td>
+      <td>0.617635</td>
+      <td>0.638050</td>
+      <td>0.650285</td>
+      <td>0.654494</td>
+      <td>0.641883</td>
+      <td>0.621982</td>
+      <td>0.590428</td>
+      <td>0.559404</td>
+    </tr>
+    <tr>
+      <th>1.0</th>
+      <td>0.497724</td>
+      <td>0.590569</td>
+      <td>0.628293</td>
+      <td>0.643415</td>
+      <td>0.649919</td>
+      <td>0.648943</td>
+      <td>0.631382</td>
+      <td>0.606829</td>
+      <td>0.571220</td>
+      <td>0.536098</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">),</span> <span class="n">bbox_transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_36_0.png" src="../_images/08-compas-2_36_0.png" />
+</div>
+</div>
+<div class="section" id="single-threshold-model">
+<h3><span class="section-number">8.5.1. </span>Single Threshold Model<a class="headerlink" href="#single-threshold-model" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">find_best_thresh</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">wt</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="roc-curve-with-best-single-threshold">
+<h3><span class="section-number">8.5.2. </span>ROC Curve with best single threshold<a class="headerlink" href="#roc-curve-with-best-single-threshold" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">thresh</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">roc_curve</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;decile_score&#39;</span><span class="p">])</span>
+
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">tpr</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">fpr</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s1">&#39;ROC Curve: COMPAS&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">fpr</span><span class="p">[</span><span class="mi">5</span><span class="p">]],</span> <span class="p">[</span><span class="n">tpr</span><span class="p">[</span><span class="mi">5</span><span class="p">]],</span> <span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="s1">&#39;r--&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_40_0.png" src="../_images/08-compas-2_40_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="threshold-for-each-group">
+<h3><span class="section-number">8.5.3. </span>Threshold for each group<a class="headerlink" href="#threshold-for-each-group" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">a_blk</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">a_wht</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a_blk</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;fpr&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">a_blk</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;tpr&#39;</span><span class="p">]],</span> <span class="s1">&#39;bo&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a_wht</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;fpr&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">a_wht</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;tpr&#39;</span><span class="p">]],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ROC Curve&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_42_0.png" src="../_images/08-compas-2_42_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="group-aware-thresholds">
+<h3><span class="section-number">8.5.4. </span>Group-aware thresholds<a class="headerlink" href="#group-aware-thresholds" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Create a model with possibly different thresholds per group</p></li>
+<li><p>Race was <em>not</em> a variable for COMPAS.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">find_best_thresh</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">],</span> <span class="n">wt</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">find_best_thresh</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;African-American&#39;</span><span class="p">],</span> <span class="n">wt</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+
+<span class="n">a_blk</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">a_wht</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;fpr&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;tpr&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a_blk</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;fpr&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">a_blk</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;tpr&#39;</span><span class="p">]],</span> <span class="s1">&#39;bo&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">a_wht</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;fpr&#39;</span><span class="p">]],</span> <span class="p">[</span><span class="n">a_wht</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="s1">&#39;tpr&#39;</span><span class="p">]],</span> <span class="s1">&#39;o&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)],</span> <span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;ROC Curve&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_46_0.png" src="../_images/08-compas-2_46_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="tpr-parity-fpr-parity-equalized-odds">
+<h3><span class="section-number">8.5.5. </span>TPR-Parity / FPR-Parity / Equalized Odds<a class="headerlink" href="#tpr-parity-fpr-parity-equalized-odds" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Can we choose a ‘best model’ subject to Equalized Odds?</p></li>
+<li><p>Plot the ROC curves (or table) and figure it out by hand</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">a_wht</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;thresh&#39;</span><span class="p">),</span> <span class="n">a_blk</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;thresh&#39;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;White&#39;</span><span class="p">,</span> <span class="s1">&#39;Black&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">White</th>
+      <th colspan="2" halign="left">Black</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>fpr</th>
+      <th>tpr</th>
+      <th>fpr</th>
+      <th>tpr</th>
+    </tr>
+    <tr>
+      <th>thresh</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>11</th>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>0.012596</td>
+      <td>0.044878</td>
+      <td>0.031928</td>
+      <td>0.114440</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>0.032890</td>
+      <td>0.112195</td>
+      <td>0.093373</td>
+      <td>0.250982</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>0.052484</td>
+      <td>0.196098</td>
+      <td>0.153012</td>
+      <td>0.378684</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>0.087474</td>
+      <td>0.286829</td>
+      <td>0.240964</td>
+      <td>0.503438</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>0.143457</td>
+      <td>0.398049</td>
+      <td>0.334337</td>
+      <td>0.615914</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>0.231631</td>
+      <td>0.510244</td>
+      <td>0.439157</td>
+      <td>0.709725</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.344297</td>
+      <td>0.631220</td>
+      <td>0.556024</td>
+      <td>0.803536</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.466060</td>
+      <td>0.727805</td>
+      <td>0.665663</td>
+      <td>0.884086</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.631211</td>
+      <td>0.849756</td>
+      <td>0.820482</td>
+      <td>0.950884</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<ul class="simple">
+<li><p>TPR-Parity at:</p>
+<ul>
+<li><p>(Black, White) = (10, 9), (9,7), (8,6), (7,5), (6,4), (5,3)</p></li>
+<li><p>Maximize utility at (8,6)</p></li>
+</ul>
+</li>
+<li><p>FPR-Parity at:</p>
+<ul>
+<li><p>(Black, White) = (10, 9), (8, 6), (7,5), (6,4)</p></li>
+<li><p>Maximize utility at (8,6)</p></li>
+</ul>
+</li>
+<li><p>Note: approximately equalized odds as well.</p></li>
+<li><p>What is PPV at (8,6)?</p></li>
+</ul>
+</div>
+<div class="section" id="demographic-parity">
+<h3><span class="section-number">8.5.6. </span>Demographic Parity<a class="headerlink" href="#demographic-parity" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Demographic parity is not something asked for by any groups involved</p></li>
+<li><p>What would this look like?</p></li>
+<li><p>“same proportion of Black/White defendants predicted ‘reoffend’</p></li>
+</ul>
+</div>
+<div class="section" id="proportion-white-for-each-decile">
+<h3><span class="section-number">8.5.7. </span>Proportion White for each decile:<a class="headerlink" href="#proportion-white-for-each-decile" title="Permalink to this headline">¶</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">is_white</span><span class="o">=</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">))</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;decile_score&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">is_white</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08-compas-2_52_0.png" src="../_images/08-compas-2_52_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="what-thresholds-yield-the-best-model-subject-to-demographic-parity">
+<h3><span class="section-number">8.5.8. </span>What thresholds yield the best model, subject to Demographic Parity<a class="headerlink" href="#what-thresholds-yield-the-best-model-subject-to-demographic-parity" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Iterate through all pairs of thresholds and calculate the decision by model</p></li>
+<li><p>Calculate proportion ‘predict reoffend’ to find demographic parity</p></li>
+<li><p>Find the pairs of thresholds with highest utility</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sc</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">tw</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">tb</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">):</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sc</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">,</span> <span class="s1">&#39;decision_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">tw</span><span class="p">,</span> <span class="n">tb</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sc</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;Caucasian&#39;</span><span class="p">,</span> <span class="s1">&#39;decile_score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">tw</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">sc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sc</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;decision_</span><span class="si">%d</span><span class="s1">_</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span><span class="p">(</span><span class="n">tw</span><span class="p">,</span> <span class="n">tb</span><span class="p">)]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sc</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">sc</span><span class="o">.</span><span class="n">race</span> <span class="o">==</span> <span class="s1">&#39;African-American&#39;</span><span class="p">,</span> <span class="s1">&#39;decile_score&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="n">tb</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">demos</span> <span class="o">=</span> <span class="n">sc</span><span class="p">[[</span><span class="s1">&#39;race&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;decision_&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]]</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;race&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
+<span class="n">demos</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>race</th>
+      <th>African-American</th>
+      <th>Caucasian</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>decision_1_1</th>
+      <td>1.000000</td>
+      <td>1.00000</td>
+    </tr>
+    <tr>
+      <th>decision_1_2</th>
+      <td>0.892316</td>
+      <td>1.00000</td>
+    </tr>
+    <tr>
+      <th>decision_1_3</th>
+      <td>0.785985</td>
+      <td>1.00000</td>
+    </tr>
+    <tr>
+      <th>decision_1_4</th>
+      <td>0.692370</td>
+      <td>1.00000</td>
+    </tr>
+    <tr>
+      <th>decision_1_5</th>
+      <td>0.588203</td>
+      <td>1.00000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>decision_10_6</th>
+      <td>0.489448</td>
+      <td>0.02608</td>
+    </tr>
+    <tr>
+      <th>decision_10_7</th>
+      <td>0.385552</td>
+      <td>0.02608</td>
+    </tr>
+    <tr>
+      <th>decision_10_8</th>
+      <td>0.277327</td>
+      <td>0.02608</td>
+    </tr>
+    <tr>
+      <th>decision_10_9</th>
+      <td>0.180195</td>
+      <td>0.02608</td>
+    </tr>
+    <tr>
+      <th>decision_10_10</th>
+      <td>0.077381</td>
+      <td>0.02608</td>
+    </tr>
+  </tbody>
+</table>
+<p>100 rows × 2 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="n">demos</span><span class="p">[</span><span class="s1">&#39;African-American&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">demos</span><span class="p">[</span><span class="s1">&#39;Caucasian&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:(</span><span class="o">-</span><span class="mf">0.02</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mf">0.02</span><span class="p">)]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>decision_1_1     0.000000
+decision_7_9     0.009453
+decision_9_10    0.011366
+decision_3_5     0.012816
+dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">weighted_accuracy</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">wt</span><span class="o">=</span><span class="mf">0.7</span><span class="p">):</span>
+    
+    <span class="k">return</span> <span class="n">metrics</span><span class="o">.</span><span class="n">accuracy_score</span><span class="p">(</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">],</span> 
+        <span class="n">col</span><span class="p">,</span> 
+        <span class="n">sample_weight</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;is_recid&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="mi">1</span><span class="p">:</span> <span class="n">wt</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">1</span><span class="p">})</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">sc</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sc</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="s1">&#39;decision_&#39;</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">weighted_accuracy</span><span class="p">(</span><span class="n">sc</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>decision_7_6     0.667584
+decision_6_6     0.667546
+decision_7_7     0.666571
+decision_6_7     0.666533
+decision_8_6     0.664698
+                   ...   
+decision_2_1     0.489688
+decision_1_3     0.484068
+decision_1_10    0.475486
+decision_1_2     0.453141
+decision_1_1     0.409561
+Length: 100, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3><span class="section-number">8.5.9. </span>Demographic Parity<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Choose a model with the following thresholds:</p>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(t_w = 7\)</span> for White Defendants</p></li>
+<li><p><span class="math notranslate nohighlight">\(t_b = 9\)</span> for Black Defendants</p></li>
+</ul>
+</li>
+<li><p>The thresholds, as we are valuing FP:FN at a 2:1 ratio</p>
+<ul>
+<li><p>Also: a lot of mass on Black population at higher end</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./content"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+        <div class='prev-next-bottom'>
+            
+    <a class='left-prev' id="prev-link" href="07-score-functions.html" title="previous page"><span class="section-number">7. </span>Score Functions, Calibration, and Fairness</a>
+    <a class='right-next' id="next-link" href="bibliography.html" title="next page"><span class="section-number">9. </span>Bibliography</a>
+
+        </div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Aaron Fraenkel<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.d3f166471bb80abb5163.js"></script>
+
+
+    
+  </body>
+</html>

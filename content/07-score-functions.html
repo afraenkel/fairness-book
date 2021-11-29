@@ -279,6 +279,7 @@
                 
   <div class="section" id="score-functions-calibration-and-fairness">
 <h1><span class="section-number">7. </span>Score Functions, Calibration, and Fairness<a class="headerlink" href="#score-functions-calibration-and-fairness" title="Permalink to this headline">¶</a></h1>
+<p>This chapter takes the perspective of <span id="id1">[<a class="reference internal" href="bibliography.html#id16"><span>BHN19</span></a>]</span>, in less abstract language.</p>
 <p>Decision making systems, and binary classification problems in particular, often involve developing an intermediate score function. A <em>score</em> function is a real-valued function that summarizes the data in a natural way for making a (yes/no) decision. Such a function becomes a classifier by <em>thresholding</em> the score.</p>
 <p>A common score function is one that summarizes the data such that the output representing the probability that an event of interest occurs. A threshold for deciding such a decision is often set at 0.5.</p>
 <p><strong>Score function: logistic regression</strong>. Logistic regression considers a linear relationship between:</p>
@@ -352,7 +353,7 @@ C_t(x) = \left\{\begin{matrix}
 <h3><span class="section-number">7.2.1. </span>Equalized Odds<a class="headerlink" href="#equalized-odds" title="Permalink to this headline">¶</a></h3>
 <p>Given a score function <span class="math notranslate nohighlight">\(S\)</span>, how can we choose a threshold <span class="math notranslate nohighlight">\(t\)</span> so <span class="math notranslate nohighlight">\(C_t\)</span> satisfies equalized odds? Recall that Equalized Odds requires parity of FNR/FPR across groups. If one considers the score function <span class="math notranslate nohighlight">\(S\)</span> restricted to the two groups separately <span class="math notranslate nohighlight">\(S|a\)</span>, <span class="math notranslate nohighlight">\(S|b\)</span>, then we can plot the ROC curve for each score function:</p>
 <p><img alt="" src="https://fairmlbook.org/assets/roc_curve_2.svg" />
-(Figure from <span id="id1">[<a class="reference internal" href="bibliography.html#id16"><span>BHN19</span></a>]</span>)</p>
+(Figure from <span id="id2">[<a class="reference internal" href="bibliography.html#id16"><span>BHN19</span></a>]</span>)</p>
 <p>The point of intersection of the two ROC curves represents classifiers for the two groups that satisfies Equality of Odds (since FNR = 1 - TPR). However, these classifiers may have different thresholds. A single classifier satisfying Equality of Odds is obtained via a two-threshold derived classifier:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -414,7 +415,7 @@ E[S|Y=1, A=a] = E[S|Y = 1, A = b]
 </div>
 <div class="section" id="trade-offs-for-score-functions">
 <h2><span class="section-number">7.3. </span>Trade-Offs for Score Functions<a class="headerlink" href="#trade-offs-for-score-functions" title="Permalink to this headline">¶</a></h2>
-<p>An analogous version for score functions of the trade-offs theorem is found in <span id="id2">[<a class="reference internal" href="bibliography.html#id17"><span>KMR16</span></a>]</span>.</p>
+<p>An analogous version for score functions of the trade-offs theorem is found in <span id="id3">[<a class="reference internal" href="bibliography.html#id17"><span>KMR16</span></a>]</span>.</p>
 <p>Suppose a score function S satisfies the following three conditions:</p>
 <ul class="simple">
 <li><p>Calibration from within groups</p></li>
@@ -431,7 +432,7 @@ E[S|Y=1, A=a] = E[S|Y = 1, A = b]
 <li><p>The further the base-rates are from equal, the more severe the failure of at least one of the conditions.</p></li>
 <li><p>The further the classifier is from perfect, the more severe the failure of at least one of the conditions.</p></li>
 </ul>
-<p>For proofs of these observations, see <span id="id3">[<a class="reference internal" href="bibliography.html#id17"><span>KMR16</span></a>]</span>.</p>
+<p>For proofs of these observations, see <span id="id4">[<a class="reference internal" href="bibliography.html#id17"><span>KMR16</span></a>]</span>.</p>
 </div>
 </div>
 
